@@ -23,6 +23,8 @@ SideScroller.Menu.prototype = {
     },
  
   render: function(){
+      
+      console.log('Helloworld');
         
     }
     
