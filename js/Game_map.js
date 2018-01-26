@@ -12,6 +12,9 @@ SideScroller.Game_map.prototype = {
       //this.game.time.advancedTiming = true;
     this.load.image('background', 'img/debug-grid-1920x1920.png');
     this.load.image('player','img/phaser-dude.png');
+    this.load.image('casa','img/casa.png');
+    this.load.image('calle','img/calle.png');
+      
     },
  
   create: function() {
