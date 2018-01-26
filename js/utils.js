@@ -4,7 +4,7 @@ funtion pixelsToTile(x,y,tileHeight,tileWidth,screenHeight, screenWidth){
     return position;
 }
 
-funtion tileTopixelse(tileX,tileY,tileHeight,tileWidth,screenHeight, screenWidth){
+funtion tileToPixels(tileX,tileY,tileHeight,tileWidth,screenHeight, screenWidth){
     var  pixelPosition = {x,y};
     
     return pixelPosition;
