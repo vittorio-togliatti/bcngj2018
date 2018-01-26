@@ -1,7 +1,7 @@
 var SideScroller = SideScroller || {};
 
-var originalHeight = 360;
-var originalWidth = 2560;
+var originalHeight = 600;
+var originalWidth = 800;
 
 //parametros de juego
 var bgk_speed = 0.5;
@@ -33,14 +33,14 @@ var gravity_value = 130;
 //var windowHeight = 1005;
 //var windowWidth = 1920;
 
-var windowHeight = 360;
-var windowWidth = 640;
+var windowHeight = 600;
+var windowWidth = 800;
 
 var currentScaleFactor = windowHeight / originalHeight;
     windowHeight = originalHeight;
     windowWidth = windowWidth / currentScaleFactor;
    
-SideScroller.game = new Phaser.Game(800, 600, Phaser.AUTO, '','','',false,'');
+SideScroller.game = new Phaser.Game(windowWidth, windowHeight, Phaser.AUTO, '','','',false,'');
 
 //var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 // 
@@ -50,6 +50,8 @@ SideScroller.game = new Phaser.Game(800, 600, Phaser.AUTO, '','','',false,'');
 //SideScroller.game.state.add('Preload', SideScroller.Preload);
 //SideScroller.game.state.add('Menu', SideScroller.Menu);
 SideScroller.game.state.add('Game', SideScroller.Game);
+SideScroller.game.state.add('Game_map', SideScroller.Game_map);
 //SideScroller.game.state.add('Credits', SideScroller.Credits);
 
 SideScroller.game.state.start('Game');
+//SideScroller.game.state.start('Game_map');

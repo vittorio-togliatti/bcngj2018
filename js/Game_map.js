@@ -1,11 +1,11 @@
 var SideScroller = SideScroller || {};
  
-SideScroller.Game = function() {};
+SideScroller.Game_map = function() {};
 
 var player;
 var cursors;
 
-SideScroller.Game.prototype = {
+SideScroller.Game_map.prototype = {
  
   preload: function(){
  
@@ -20,7 +20,7 @@ SideScroller.Game.prototype = {
     this.game.world.setBounds(0, 0, 1920, 1920);
 
     this.game.physics.startSystem(Phaser.Physics.P2JS);
-    //this.game.physics.startSystem(Phaser.Physics.ARCADE);
+    this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
     player = this.game.add.sprite(this.game.world.centerX, this.world.centerY, 'player');
 
