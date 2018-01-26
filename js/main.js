@@ -40,13 +40,16 @@ var currentScaleFactor = windowHeight / originalHeight;
     windowHeight = originalHeight;
     windowWidth = windowWidth / currentScaleFactor;
    
-SideScroller.game = new Phaser.Game(windowWidth, windowHeight, Phaser.AUTO, '','','',false,'');
- 
-SideScroller.game.state.add('Boot', SideScroller.Boot);
-SideScroller.game.state.add('Splash', SideScroller.Splash);
-SideScroller.game.state.add('Preload', SideScroller.Preload);
-SideScroller.game.state.add('Menu', SideScroller.Menu);
-SideScroller.game.state.add('Game', SideScroller.Game);
-SideScroller.game.state.add('Credits', SideScroller.Credits);
+SideScroller.game = new Phaser.Game(800, 600, Phaser.AUTO, '','','',false,'');
 
-SideScroller.game.state.start('Boot');
+//var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
+// 
+
+//SideScroller.game.state.add('Boot', SideScroller.Boot);
+//SideScroller.game.state.add('Splash', SideScroller.Splash);
+//SideScroller.game.state.add('Preload', SideScroller.Preload);
+//SideScroller.game.state.add('Menu', SideScroller.Menu);
+SideScroller.game.state.add('Game', SideScroller.Game);
+//SideScroller.game.state.add('Credits', SideScroller.Credits);
+
+SideScroller.game.state.start('Game');

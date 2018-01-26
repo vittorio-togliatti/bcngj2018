@@ -2,29 +2,63 @@ var SideScroller = SideScroller || {};
  
 SideScroller.Game = function() {};
 
+var player;
+var cursors;
 
 SideScroller.Game.prototype = {
  
   preload: function(){
  
-      this.game.time.advancedTiming = true;
-      
-     
+      //this.game.time.advancedTiming = true;
+    this.load.image('background', 'img/debug-grid-1920x1920.png');
+    this.load.image('player','img/phaser-dude.png');
     },
  
   create: function() {
-      
-    //*******  variables customización *******//
-   
+      this.game.add.tileSprite(0, 0, 1920, 1920, 'background');
 
-    //***********  end customize ************//
+    this.game.world.setBounds(0, 0, 1920, 1920);
+
+    this.game.physics.startSystem(Phaser.Physics.P2JS);
+
+    player = this.game.add.sprite(this.game.world.centerX, this.world.centerY, 'player');
+
+    this.game.physics.p2.enable(player);
+
+    player.body.fixedRotation = true;
+
+    cursors = this.game.input.keyboard.createCursorKeys();
+
+    //  Notice that the sprite doesn't have any momentum at all,
+    //  it's all just set by the camera follow type.
+    //  0.1 is the amount of linear interpolation to use.
+    //  The smaller the value, the smooth the camera (and the longer it takes to catch up)
+    this.game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
       
       
    
  }, 
  
   update: function() {
-     
+     player.body.setZeroVelocity();
+
+    if (cursors.up.isDown)
+    {
+        player.body.moveUp(300)
+    }
+    else if (cursors.down.isDown)
+    {
+        player.body.moveDown(300);
+    }
+
+    if (cursors.left.isDown)
+    {
+        player.body.velocity.x = -300;
+    }
+    else if (cursors.right.isDown)
+    {
+        player.body.moveRight(300);
+    }
             
   },
  
@@ -32,11 +66,7 @@ SideScroller.Game.prototype = {
  
     {
  
-//        this.game.debug.text(this.game.time.fps || '--', 20, 20, "#00ff00", "10px Courier");  
-//        this.game.debug.text('Speed: ' + this.player.body.velocity.y, 20, 40, "#00ff00", "10px Courier");
-   
-//        this.game.debug.text('Width: ' + window.screen.availWidth * window.devicePixelRatio, 20, 60, "#00ff00", "10px Courier");
-//        this.game.debug.text('Height: ' + window.screen.availHeight * window.devicePixelRatio, 20, 80, "#00ff00", "10px Courier");
+              this.game.debug.cameraInfo(this.game.camera, 32, 32);
         
     }
     
