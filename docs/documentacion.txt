@@ -1,0 +1,21 @@
+Medidas
+
+muñeco1 30-42
+muñeco2 10-14
+
+pantalla1 1920-1920
+pantalla2 640-640
+
+tile1 60-60
+tile2 20-20
+
+codigos json
+1 Muñeco
+2 Agua
+3 Carretera
+4 Edificio
+5 Tierra
+
+
+
+
