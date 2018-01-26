@@ -53,5 +53,5 @@ SideScroller.game.state.add('Game', SideScroller.Game);
 SideScroller.game.state.add('Game_map', SideScroller.Game_map);
 //SideScroller.game.state.add('Credits', SideScroller.Credits);
 
-SideScroller.game.state.start('Game');
-//SideScroller.game.state.start('Game_map');
+//SideScroller.game.state.start('Game');
+SideScroller.game.state.start('Game_map');
