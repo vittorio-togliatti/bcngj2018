@@ -9,9 +9,16 @@ var map;
 var messageSendId2 = '5a6bf3777f0cfc4ec6cc7932';
 var messageGetId2 = '5a6bf3de7f0cfc4ec6cc7933';
 
+var escavadoras = {
+	escavadora1: 0,
+	escavadora2: 0,
+};
+
 SideScroller.Game_map.prototype = {
  
   preload: function(){
+	this.pulsaciones = 0,
+	
     this.mapa = 
         "3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,30,3,3,3,3,3,3,3,3,3,3,3,3,3,30,3,3,3,3,3\n" + 
         "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,30,4,4,4,4,4,4,4,4,4,4,4,4,4,30,4,4,4,4,4\n" + 
@@ -31,7 +38,7 @@ SideScroller.Game_map.prototype = {
         "4,0,0,0,0,0,30,0,0,0,0,0,0,30,0,30,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30,0,0,10,0,10,0,4\n" +
         "4,0,0,0,0,0,30,0,0,0,0,10,0,30,0,30,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30,0,0,10,0,10,0,4\n" +
         "4,0,0,0,0,0,32,31,31,35,0,10,0,30,0,30,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30,0,0,10,0,10,0,4\n" +
-        "4,0,0,0,0,0,0,0,0,33,0,10,0,32,31,33,0,10,0,0,12,11,11,11,11,11,11,11,11,11,11,11,24,11,11,15,0,10,0,4\n" +
+        "4,0,0,0,0,0,0,0,0,30,0,10,0,32,31,33,0,10,0,0,12,11,11,11,11,11,11,11,11,11,11,11,24,11,11,15,0,10,0,4\n" +
         "4,11,11,11,11,11,11,11,11,30,0,10,0,0,0,0,0,10,0,0,10,0,0,0,0,0,0,0,0,0,0,0,30,0,0,0,0,10,0,4\n" +
         "4,0,0,0,0,0,34,31,24,33,0,10,0,12,11,11,11,11,11,11,15,0,0,0,0,0,0,0,0,0,0,0,30,0,0,0,0,10,0,4\n" +
         "4,0,0,0,0,0,30,0,10,0,0,10,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30,0,0,0,0,10,0,4\n" +
@@ -61,7 +68,7 @@ SideScroller.Game_map.prototype = {
     this.game.cache.addTilemap('dynamicMap', null, this.mapa, Phaser.Tilemap.CSV);
     //this.game.cache.addTilemap('dynamicMap', null, this.mapa, Phaser.Tilemap.JSON);
       
-    console.log(this.lvl);  
+    //console.log(this.lvl);  
       
     //  Create our map (the 16x16 is the tile size)
     map = this.game.add.tilemap('dynamicMap', 20, 20);
@@ -106,6 +113,31 @@ SideScroller.Game_map.prototype = {
         player.body.x = jsonUpdate.persona[0]*20+10;
         player.body.y = jsonUpdate.persona[1]*20+10;
     }
+	 
+	if(escavadoras.escavadora1 == '1'
+	  && this.game.input.keyboard.isDown(Phaser.KeyCode.SPACEBAR)){
+		if(this.pulsaciones < 10){ this.pulsaciones++; }
+		else{
+			this.pulsaciones = 0;
+			postJsonSync("{'escavadoraA': 2'}",messageSendId2).then(function(result) {
+				console.log(result);
+			});
+		}
+	}
+	if(escavadoras.escavadora2 == '1'
+			&& this.game.input.keyboard.isDown(Phaser.KeyCode.SPACEBAR)){
+		if(this.pulsaciones < 10){ this.pulsaciones++; }
+		else{
+			this.pulsaciones = 0;
+			postJsonSync("{'escavadoraB': 2'}",messageSendId2).then(function(result) {
+				console.log(result);
+			});
+		}
+	}
+	
+	/*if(contador){
+	
+	}*/
     
   },
  
@@ -125,7 +157,15 @@ function syncronizeMap( playerPosition ) {
     
     getJsonSync(messageGetId2).then(function(data) {
         jsonUpdate.persona = JSON.parse(data.name.replace(/'/g, '"')).persona.split(",");
-        console.log("MEssageGetId2", jsonUpdate);
+        //console.log("Datos escavación:", data);
+        
+		if(data.name.escavadoraA == '1'){
+			escavadoras.escavadora1 = true;
+		}
+		if(data.name.escavadoraB == '1'){
+			escavadoras.escavadora2 = true;
+		}
+        
     });
     
     // {'escavadora': '1','rocas': '1'}
