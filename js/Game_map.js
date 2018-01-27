@@ -41,6 +41,7 @@ var map;
 SideScroller.Game_map.prototype = {
  
   preload: function(){
+      
     //this.game.time.advancedTiming = true;
     this.load.image('background', 'img/Fondos.png');
     this.load.spritesheet('fondos','img/Fondos.png', 20, 20, 6);
