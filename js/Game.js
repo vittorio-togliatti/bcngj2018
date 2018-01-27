@@ -1,7 +1,7 @@
 var SideScroller = SideScroller || {};
  
 SideScroller.Game = function() {};
-
+var jsonUpdate = {};
 var messageSendId = '5a6bf3de7f0cfc4ec6cc7933';
 var messageGetId = '5a6bf3777f0cfc4ec6cc7932';
 
@@ -48,7 +48,10 @@ SideScroller.Game.prototype = {
       //this.game.time.advancedTiming = true;
     this.load.image('background', 'img/debug-grid.png');
     this.load.spritesheet('fondos','img/Fondos_60.png', 60, 60, 10);
-    this.load.image('player','img/phaser-dude.png');
+      
+    // this.load.image('player','img/phaser-dude.png');
+    this.load.spritesheet('player','img/Player_60.png', 60, 60);
+      
     this.load.image('casa','img/casa.png');
     this.load.image('calle','img/calle.png');
     },
@@ -94,6 +97,10 @@ SideScroller.Game.prototype = {
       
 
     player = this.game.add.sprite(this.game.world.centerX, this.world.centerY, 'player');
+    player.animations.add('down', [0, 1], 10, true);
+    player.animations.add('right', [2, 3], 10, true);
+    player.animations.add('left', [4, 5], 10, true);
+    player.animations.add('up', [6, 7], 10, true);
       
     this.game.physics.p2.enable(player);
 
@@ -119,28 +126,33 @@ SideScroller.Game.prototype = {
   update: function() {
      player.body.setZeroVelocity();
 
-    if (cursors.up.isDown)
-    {
-        player.body.moveUp(300)
+    // Animations
+    if (cursors.left.isDown) {
+        player.animations.play('left');
+    } else if (cursors.right.isDown) {
+        player.animations.play('right');
+    } else if (cursors.up.isDown) {
+        player.animations.play('up');
+    } else if (cursors.down.isDown) {
+        player.animations.play('down');
+    } else {
+        player.animations.stop();
+        player.frame = 0;
     }
-    else if (cursors.down.isDown)
-    {
+      
+    // Movement
+    if (cursors.up.isDown) {
+        player.body.moveUp(300);
+    } else if (cursors.down.isDown) {
         player.body.moveDown(300);
     }
-
-    if (cursors.left.isDown)
-    {
-        player.body.velocity.x = -300;
-    }
-    else if (cursors.right.isDown)
-    {
+    if (cursors.left.isDown) {
+        player.body.moveLeft(300);
+    } else if (cursors.right.isDown) {
         player.body.moveRight(300);
     }
-      
+    
     var rockLevel = jsonUpdate.rocks1Level;
-      
-      
-            
   },
  
   render: function()
