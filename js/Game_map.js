@@ -97,7 +97,7 @@ SideScroller.Game_map.prototype = {
     // -------------------------------------------------------
 
     // SYncronize with the other instance
-    this.game.time.events.loop(Phaser.Timer.SECOND * 0.5, syncronize, this, player.body.sprite.position);
+    this.game.time.events.loop(Phaser.Timer.SECOND * 0.5, syncronizeMap, this, player.body.sprite.position);
     
  }, 
  
@@ -121,7 +121,7 @@ SideScroller.Game_map.prototype = {
 };
 
 //functions
-function syncronize( playerPosition ) {
+function syncronizeMap( playerPosition ) {
     
     getJsonSync(messageGetId2).then(function(data) {
         jsonUpdate.persona = JSON.parse(data.name.replace(/'/g, '"')).persona.split(",");
