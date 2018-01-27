@@ -9,6 +9,9 @@ var map;
 var messageSendId2 = '5a6bf3777f0cfc4ec6cc7932';
 var messageGetId2 = '5a6bf3de7f0cfc4ec6cc7933';
 
+var estadoEscavadoraA2 = 0;
+var estadoEscavadoraB2 = 0;
+
 SideScroller.Game_map.prototype = {
  
   preload: function(){

@@ -5,6 +5,9 @@ var jsonUpdate = {};
 var messageSendId = '5a6bf3de7f0cfc4ec6cc7933';
 var messageGetId = '5a6bf3777f0cfc4ec6cc7932';
 
+var estadoEscavadoraA = 0;
+var estadoEscavadoraB = 0;
+
 var mapaJson = {'mapa': [[4,4],[4,4]]};
     
 var mapaJson = {'mapa':
@@ -26,7 +29,7 @@ var mapaJson = {'mapa':
         [4,0,0,0,0,0,30,0,0,0,0,0,0,30,0,30,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30,0,0,10,0,10,0,4],
         [4,0,0,0,0,0,30,0,0,0,0,10,0,30,0,30,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30,0,0,10,0,10,0,4],
         [4,0,0,0,0,0,32,31,31,35,0,10,0,30,0,30,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30,0,0,10,0,10,0,4],
-        [4,0,0,0,0,0,0,0,0,33,0,10,0,32,31,33,0,10,0,0,12,11,11,11,11,11,11,11,11,11,11,11,24,11,11,15,0,10,0,4],
+        [4,0,0,0,0,0,0,0,0,30,0,10,0,32,31,33,0,10,0,0,12,11,11,11,11,11,11,11,11,11,11,11,24,11,11,15,0,10,0,4],
         [4,11,11,11,11,11,11,11,11,30,0,10,0,0,0,0,0,10,0,0,10,0,0,0,0,0,0,0,0,0,0,0,30,0,0,0,0,10,0,4],
         [4,0,0,0,0,0,34,31,24,33,0,10,0,12,11,11,11,11,11,11,15,0,0,0,0,0,0,0,0,0,0,0,30,0,0,0,0,10,0,4],
         [4,0,0,0,0,0,30,0,10,0,0,10,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30,0,0,0,0,10,0,4],
@@ -62,7 +65,7 @@ var mapa1 =
         "4,0,0,0,0,0,30,0,0,0,0,0,0,30,0,30,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30,0,0,10,0,10,0,4\n" +
         "4,0,0,0,0,0,30,0,0,0,0,10,0,30,0,30,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30,0,0,10,0,10,0,4\n" +
         "4,0,0,0,0,0,32,31,31,35,0,10,0,30,0,30,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30,0,0,10,0,10,0,4\n" +
-        "4,0,0,0,0,0,0,0,0,33,0,10,0,32,31,33,0,10,0,0,12,11,11,11,11,11,11,11,11,11,11,11,24,11,11,15,0,10,0,4\n" +
+        "4,0,0,0,0,0,0,0,0,30,0,10,0,32,31,33,0,10,0,0,12,11,11,11,11,11,11,11,11,11,11,11,24,11,11,15,0,10,0,4\n" +
         "4,11,11,11,11,11,11,11,11,30,0,10,0,0,0,0,0,10,0,0,10,0,0,0,0,0,0,0,0,0,0,0,30,0,0,0,0,10,0,4\n" +
         "4,0,0,0,0,0,34,31,24,33,0,10,0,12,11,11,11,11,11,11,15,0,0,0,0,0,0,0,0,0,0,0,30,0,0,0,0,10,0,4\n" +
         "4,0,0,0,0,0,30,0,10,0,0,10,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30,0,0,0,0,10,0,4\n" +
@@ -146,7 +149,12 @@ SideScroller.Game.prototype = {
                         || (mapaJson.mapa[y][x] == 5) 
                         || (mapaJson.mapa[y][x] == 21)
                         || (mapaJson.mapa[y][x] == 22)
-                        || (mapaJson.mapa[y][x] == 2)){
+                        || (mapaJson.mapa[y][x] == 2)
+                        || (mapaJson.mapa[y][x] == 24)
+                        || (mapaJson.mapa[y][x] == 30)
+                       || (mapaJson.mapa[y][x] == 34)
+                       || (mapaJson.mapa[y][x] == 31)
+                       || (mapaJson.mapa[y][x] == 33)){
                   tile = this.objects.create(x * 60 + 30, y * 60 + 30, 'fondos', mapaJson.mapa[y][x]);
                   this.game.physics.p2.enable( [ tile ], false );
 			      tile.body.static = true;
@@ -155,6 +163,8 @@ SideScroller.Game.prototype = {
                   
               }  else if (mapaJson.mapa[y][x] == 7){
                     var escavadora = this.escavadoras.create(x * 60 + 30,y * 60 + 30, 'fondos',7);
+                    escavadora.name = y;
+                    console.log("Columna escavadora:  "+ escavadora.name );
                     this.game.physics.p2.enable([escavadora], false);
                     escavadora.body.static = true;
                     escavadora.body.setCollisionGroup( this.escavadorasCollisionGroup );
@@ -186,7 +196,7 @@ SideScroller.Game.prototype = {
       
       
     // SYncronize with the other instance
-    this.game.time.events.loop(Phaser.Timer.SECOND * 2, syncronizeGame, this, player.body.sprite.position);
+    this.game.time.events.loop(Phaser.Timer.SECOND * 0.5, syncronizeGame, this, player.body.sprite.position);
    
  }, 
  
@@ -240,8 +250,13 @@ activaEscavadora: function(escavadora, hombre)
  
     {
         escavadora.sprite.loadTexture('fondos', 8, false);
-        //escavadora.loadTexture('mummy', 0, false);
-        //escavadora.sprite.destroy();
+
+            if (escavadora.sprite.x > 1200){
+                    estadoEscavadoraA = 1;
+                } else if(escavadora.sprite.x < 1200) { 
+                    estadoEscavadoraB = 1;
+            }
+        
     }
     
     
@@ -253,10 +268,10 @@ function syncronizeGame( playerPosition ) {
     getJsonSync(messageGetId).then(function(data) {
         console.log(" ****** DATA: ", data);
          
-        var dataFake = {"name":"{'escavadora': '1','piedras': '1'}"};
+        //var dataFake = {"name":"{'escavadora': '1','piedras': '1'}"};
         
-        jsonUpdate.escavadora = JSON.parse(dataFake.name.replace(/'/g, '"')).escavadora;
-        jsonUpdate.piedras = JSON.parse(dataFake.name.replace(/'/g, '"')).piedras;
+        jsonUpdate.escavadora = JSON.parse(data.name.replace(/'/g, '"')).escavadora;
+        jsonUpdate.piedras = JSON.parse(data.name.replace(/'/g, '"')).piedras;
         
         console.log(" ****** messageGetId: ", jsonUpdate);
     });
@@ -264,7 +279,8 @@ function syncronizeGame( playerPosition ) {
     var horizontalTile = parseInt(playerPosition.x / 60);
     var verticalTile = parseInt(playerPosition.y / 60);
     
-    postJsonSync("{'persona': '" + horizontalTile + "," + verticalTile + "'}",messageSendId).then(function(result) {
+    postJsonSync("{'persona': '" + horizontalTile + "," + verticalTile + "','escavadoraA': '" + estadoEscavadoraA 
+                 + "','escavadoraB': '" + estadoEscavadoraB + "'}",messageSendId).then(function(result) {
         console.log(result);
     });
 }
