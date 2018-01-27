@@ -1,10 +1,9 @@
 var SideScroller = SideScroller || {};
  
 SideScroller.Game = function() {};
-
+var jsonUpdate = {};
 var messageSendId = '5a6bf3de7f0cfc4ec6cc7933';
 var messageGetId = '5a6bf3777f0cfc4ec6cc7932';
-var jsonUpdate = {};
 
 var mapa1 =
     "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,3,4,4,4,4,4,4,4,4,4,4,4,4,4,3,4,4,4,4,4\n" + 
