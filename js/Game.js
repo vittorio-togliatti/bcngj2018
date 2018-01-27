@@ -218,7 +218,7 @@ SideScroller.Game.prototype = {
  
   preload: function(){
     this.load.image('background', 'img/debug-grid.png');
-    this.load.spritesheet('fondos','img/Fondos_60.png', 60, 60, 24);
+    this.load.spritesheet('fondos','img/Fondos_60.png', 60, 60);
     this.load.spritesheet('player','img/Player_60.png', 60, 60);
     this.load.image('casa','img/casa.png');
     this.load.image('calle','img/calle.png');
@@ -246,48 +246,65 @@ SideScroller.Game.prototype = {
     layer.resizeWorld();
       
     this.game.physics.startSystem(Phaser.Physics.P2JS);
-    //this.game.physics.startSystem(Phaser.Physics.ARCADE);
-      
+    this.game.physics.p2.setImpactEvents( true );
     this.game.physics.p2.gravity.y = 0;
       
-        var tile;
-          
-        for(y=0;y<mapaJson.mapa.length;y++){
-              for (x=0;x<mapaJson.mapa[y].length;x++){
-                  if (mapaJson.mapa[y][x] == 0){
-                    tile = this.game.add.sprite(x * 60 +30, y * 60 +30, 'fondos', 0);
-                    this.game.physics.p2.enable(tile);
-                    tile.body.static = true;
-                  } else if(mapaJson.mapa[y][x] == 1){
-                    tile = this.game.add.sprite(x * 60 +30, y * 60 +30, 'fondos', 1);
-                    this.game.physics.p2.enable(tile);
-                    tile.body.static = true;
-                  }
-                    
-              }
-            
-          }
-//      
-//      for(i=0;i<10;i++){
-//            casa = this.game.add.sprite(30 , 30 + i * 60, 'casa');
-//            this.game.physics.p2.enable(casa);
-//            casa.body.static = true;
-//          }
+    var tile;
       
-
-    // player = this.game.add.sprite(this.game.world.centerX, this.world.centerY, 'player');
-    player = this.game.add.sprite(40 * 60 - 30, 120 - 30, 'player');
+    // Collision groups
+    this.hombreCollisionGroup = this.game.physics.p2.createCollisionGroup();
+    this.escavadorasCollisionGroup = this.game.physics.p2.createCollisionGroup();
+    this.objectsCollisionGroup = this.game.physics.p2.createCollisionGroup();
+      
+    this.game.physics.p2.updateBoundsCollisionGroup();
+    
+    // Groups
+    this.escavadoras = this.game.add.group();
+    this.objects = this.game.add.group();
+      
+      
+    for(y=0;y<mapaJson.mapa.length;y++){
+          for (x=0;x<mapaJson.mapa[y].length;x++){
+              if (mapaJson.mapa[y][x] == 0){
+                tile = this.objects.create(x * 60 + 30, y * 60 + 30, 'fondos', 0);
+                this.game.physics.p2.enable( [ tile ], false );
+			    tile.body.static = true;
+                tile.body.setCollisionGroup( this.objectsCollisionGroup );
+                tile.body.collides([this.hombreCollisionGroup]);
+                  
+                
+              } else if((mapaJson.mapa[y][x] == 1 ) 
+                        || (mapaJson.mapa[y][x] == 5) 
+                        || (mapaJson.mapa[y][x] == 21)
+                        || (mapaJson.mapa[y][x] == 22)
+                        || (mapaJson.mapa[y][x] == 2)){
+                  tile = this.objects.create(x * 60 + 30, y * 60 + 30, 'fondos', mapaJson.mapa[y][x]);
+                  this.game.physics.p2.enable( [ tile ], false );
+			      tile.body.static = true;
+                  tile.body.setCollisionGroup( this.objectsCollisionGroup );
+                  tile.body.collides([this.hombreCollisionGroup]);
+                  
+              }  else if (mapaJson.mapa[y][x] == 7){
+                    var escavadora = this.escavadoras.create(x * 60 + 30,y * 60 + 30, 'fondos',7);
+                    this.game.physics.p2.enable([escavadora], false);
+                    escavadora.body.static = true;
+                    escavadora.body.setCollisionGroup( this.escavadorasCollisionGroup );
+                    escavadora.body.collides([this.hombreCollisionGroup],this.activaEscavadora, this);
+              }
+          }
+      }
+      
+    player = this.game.add.sprite(2360, 0, 'player');
     player.animations.add('down', [0, 1], 10, true);
     player.animations.add('right', [2, 3], 10, true);
     player.animations.add('left', [4, 5], 10, true);
     player.animations.add('up', [6, 7], 10, true);
-      
     this.game.physics.p2.enable(player);
-
-      
-    this.game.physics.p2.enable(player);
-
     player.body.fixedRotation = true;
+    player.body.collides([this.escavadorasCollisionGroup,this.objectsCollisionGroup]);
+    player.body.setCollisionGroup( this.hombreCollisionGroup );
+
+
 
     cursors = this.game.input.keyboard.createCursorKeys();
 
@@ -354,6 +371,10 @@ SideScroller.Game.prototype = {
     var nivelPiedras = jsonUpdate.piedras;
     var estadoEscavadora = jsonUpdate.escavadora;
       
+    if (estadoEscavadora == 2){//esta escavando
+        
+        } 
+      
     //aqui va el codigo de actualizacion remota
       
   },
@@ -362,11 +383,19 @@ SideScroller.Game.prototype = {
  
     {
         this.game.debug.cameraInfo(this.game.camera, 32, 32);   
+    },
+    
+activaEscavadora: function(escavadora, hombre)
+ 
+    {
+        escavadora.sprite.loadTexture('fondos', 8, false);
+        //escavadora.loadTexture('mummy', 0, false);
+        //escavadora.sprite.destroy();
     }
     
-    //functions
     
 };
+
 
 function syncronizeGame( playerPosition ) {
     
