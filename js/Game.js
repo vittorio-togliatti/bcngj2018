@@ -210,17 +210,12 @@ var map;
 SideScroller.Game.prototype = {
  
   preload: function(){
- 
-      //this.game.time.advancedTiming = true;
     this.load.image('background', 'img/debug-grid.png');
     this.load.spritesheet('fondos','img/Fondos_60.png', 60, 60, 10);
-      
-    // this.load.image('player','img/phaser-dude.png');
     this.load.spritesheet('player','img/Player_60.png', 60, 60);
-      
     this.load.image('casa','img/casa.png');
     this.load.image('calle','img/calle.png');
-    },
+  },
  
   create: function() {
       
@@ -274,7 +269,7 @@ SideScroller.Game.prototype = {
       
 
     // player = this.game.add.sprite(this.game.world.centerX, this.world.centerY, 'player');
-    player = this.game.add.sprite(20 * 60 - 30, 120 - 30, 'player');
+    player = this.game.add.sprite(2800 - 30, 120 - 30, 'player');
     player.animations.add('down', [0, 1], 10, true);
     player.animations.add('right', [2, 3], 10, true);
     player.animations.add('left', [4, 5], 10, true);
@@ -296,7 +291,7 @@ SideScroller.Game.prototype = {
     this.game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
       
     // Syncronize with the other instance
-    this.game.time.events.loop(Phaser.Timer.SECOND * 0.5, syncronize, this, player.body.sprite.position);
+    this.game.time.events.loop(Phaser.Timer.SECOND * 0.5, syncronizeGame, this, player.body.sprite.position);
       
     // TODO
       /*
