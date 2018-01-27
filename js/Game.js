@@ -208,11 +208,17 @@ var player;
 var cursors;
 var map;
 
+// TODO
+var loopResult;
+var riverTiles0 = [];
+var riverTiles1 = [];
+var currentTile = 0;
+
 SideScroller.Game.prototype = {
  
   preload: function(){
     this.load.image('background', 'img/debug-grid.png');
-    this.load.spritesheet('fondos','img/Fondos_60.png', 60, 60, 10);
+    this.load.spritesheet('fondos','img/Fondos_60.png', 60, 60, 24);
     this.load.spritesheet('player','img/Player_60.png', 60, 60);
     this.load.image('casa','img/casa.png');
     this.load.image('calle','img/calle.png');
@@ -270,7 +276,7 @@ SideScroller.Game.prototype = {
       
 
     // player = this.game.add.sprite(this.game.world.centerX, this.world.centerY, 'player');
-    player = this.game.add.sprite(2800 - 30, 120 - 30, 'player');
+    player = this.game.add.sprite(40 * 60 - 30, 120 - 30, 'player');
     player.animations.add('down', [0, 1], 10, true);
     player.animations.add('right', [2, 3], 10, true);
     player.animations.add('left', [4, 5], 10, true);
@@ -294,42 +300,25 @@ SideScroller.Game.prototype = {
     // Syncronize with the other instance
     this.game.time.events.loop(Phaser.Timer.SECOND * 0.5, syncronizeGame, this, player.body.sprite.position);
       
-    // TODO
-      /*
-    var newTilesArray = [];
-    console.log('Activamos rios:');
-    for(river in rivers) {
-        var r = rivers[river];
-        for(track in r.tracks) {
-            var t = r.tracks[track];
-            for(tile in t.tiles) {
-                var tl = t.tiles[tile];
-                if(!tl.stop) {                    
-                    var animacion = '';
-                    console.log(tileToPixels(tl.x, tl.y, 60, 60, screen.height, screen.width));
-                    
-                    var newTile = this.game.add.sprite(tl.x * 60, tl.y * 60, 'fondos', 0);
-                    newTile.animations.add('flow', [0, 1], 10, true);
-                    newTilesArray.push(newTile);
-                    
-                    if(tl.orientation == 0) { animacion += 'Vertical - '  }
-                    else if(tl.orientation == 1) { animacion += 'Horizontal - ' }
-                    if(tl.direction == 0) { animacion += 'Arriba' }
-                    else if(tl.direction == 1) { animacion += 'Abajo' }
-                    else if(tl.direction == 2) { animacion += 'Derecha' }
-                    else if(tl.direction == 3) { animacion += 'Izquierda' }
-                    console.log(animacion);
-                } else {
-                    console.log('---------- End of track ', t.track , ' ----------');
-                }
-            }
-        }
-    }
     
-    for(tile in newTilesArray) {
-        newTilesArray[tile].animations.play('flow');
+    // Water flow
+    var tiles0 = rivers[0].tracks[0].tiles;
+    var tiles1 = rivers[1].tracks[0].tiles;
+      
+    for(var i = 0; i < tiles0.length; i++) {
+        var newTile = this.game.add.sprite(tiles0[i].x * 60, tiles0[i].y * 60, 'fondos', 1);
+        newTile.animations.add('flow', [1, 5], 2, false);
+        riverTiles0.push(newTile);
     }
-      */
+      
+    for(var i = 0; i < tiles1.length; i++) {
+        var newTile = this.game.add.sprite(tiles1[i].x * 60, tiles1[i].y * 60, 'fondos', 1);
+        newTile.animations.add('flow', [1, 5], 2, false);
+        riverTiles1.push(newTile);
+    }
+      
+    loopResult = this.game.time.events.loop(Phaser.Timer.SECOND * 2, animateWaterTile, this, riverTiles1);
+      
    
  }, 
  
@@ -389,7 +378,7 @@ function syncronizeGame( playerPosition ) {
         jsonUpdate.escavadora = JSON.parse(dataFake.name.replace(/'/g, '"')).escavadora;
         jsonUpdate.piedras = JSON.parse(dataFake.name.replace(/'/g, '"')).piedras;
         
-        console.log(" ****** messageGetId: ", jsonUpdate);
+        //console.log(" ****** messageGetId: ", jsonUpdate);
     });
     
     var horizontalTile = parseInt(playerPosition.x / 60);
@@ -397,4 +386,18 @@ function syncronizeGame( playerPosition ) {
     postJsonSync("{'persona': '" + horizontalTile + "," + verticalTile + "'}",messageSendId).then(function(result) {
         // console.log(result);
     });
+}
+
+function animateWaterTile( riverTiles ) {
+    
+    console.log('Animating tile ', currentTile);
+    
+    riverTiles[currentTile].animations.play('flow');
+    currentTile++;
+    
+    if(currentTile >= riverTiles.length) {
+        game.time.events.remove(loopResult);
+        currentTile = 0;
+        riverTiles = [];
+    }
 }
