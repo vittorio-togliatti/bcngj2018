@@ -12,6 +12,7 @@ var messageGetId2 = '5a6bf3de7f0cfc4ec6cc7933';
 SideScroller.Game_map.prototype = {
  
   preload: function(){
+	this.puede_cavar = false;
     this.mapa = 
         "3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,30,3,3,3,3,3,3,3,3,3,3,3,3,3,30,3,3,3,3,3\n" + 
         "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,30,4,4,4,4,4,4,4,4,4,4,4,4,4,30,4,4,4,4,4\n" + 
@@ -106,6 +107,10 @@ SideScroller.Game_map.prototype = {
         player.body.x = jsonUpdate.persona[0]*20+10;
         player.body.y = jsonUpdate.persona[1]*20+10;
     }
+	  
+	if(cursors.space && this.puede_cavar){
+		
+	}
     
   },
  
@@ -125,7 +130,9 @@ function syncronizeMap( playerPosition ) {
     
     getJsonSync(messageGetId2).then(function(data) {
         jsonUpdate.persona = JSON.parse(data.name.replace(/'/g, '"')).persona.split(",");
-        console.log("MEssageGetId2", jsonUpdate);
+        console.log("Datos escavación:", data);
+        
+        
     });
     
     // {'escavadora': '1','rocas': '1'}
