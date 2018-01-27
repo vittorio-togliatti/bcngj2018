@@ -1,7 +1,7 @@
 
 function getJsonSync(messageGetId){
     
-            console.log("Entra getJson");
+            // console.log("Entra getJson");
 
                     var deferred = new $.Deferred();
 
@@ -16,8 +16,8 @@ function getJsonSync(messageGetId){
 
             
                         request.done(function(data, textStatus, jqXHR){
-                            console.log(jqXHR);
-                            console.log( "Request success: " + textStatus );
+                            // console.log(jqXHR);
+                            // console.log( "Request success: " + textStatus );
                             if(data){
 
 
@@ -27,7 +27,7 @@ function getJsonSync(messageGetId){
 
             
                         request.fail(function(jqXHR, textStatus) {
-                            console.log(jqXHR);
+                            // console.log(jqXHR);
                             console.log( "Request failed: " + textStatus );
 
                             deferred.fail("error");
@@ -40,7 +40,7 @@ function getJsonSync(messageGetId){
 
 function postJsonSync(jsonString,messageSendId){
     
-            console.log("Entra postJson");
+            // console.log("Entra postJson");
 
                     var deferred = new $.Deferred();
 
@@ -55,8 +55,8 @@ function postJsonSync(jsonString,messageSendId){
 
             
                         request.done(function(data, textStatus, jqXHR){
-                            console.log(jqXHR);
-                            console.log( "Request success: " + textStatus );
+                            // console.log(jqXHR);
+                            // console.log( "Request success: " + textStatus );
                             if(data){
 
 
@@ -66,7 +66,7 @@ function postJsonSync(jsonString,messageSendId){
 
             
                         request.fail(function(jqXHR, textStatus) {
-                            console.log(jqXHR);
+                            // console.log(jqXHR);
                             console.log( "Request failed: " + textStatus );
 
                             deferred.fail("error");

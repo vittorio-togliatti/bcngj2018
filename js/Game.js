@@ -37,6 +37,138 @@ var mapa1 =
     "3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3\n" +
     "3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3";
 
+var rivers = [
+    {
+        river: 1,
+        tracks: [
+            {
+                track: 1,
+                tiles: [
+                    { x: 20, y: 0, orientation: 0, direction: 1 },
+                    { x: 20, y: 1, orientation: 0, direction: 1 },
+                    { x: 20, y: 2, orientation: 0, direction: 1 },
+                    { x: 20, y: 3, orientation: 0, direction: 1 },
+                    { x: 20, y: 4, orientation: 0, direction: 1 },
+                    { x: 20, y: 5, orientation: 0, direction: 1 },
+                    { x: 20, y: 6, orientation: 0, direction: 1 },
+                    { x: 20, y: 7, orientation: 0, direction: 1 },
+                    { x: 20, y: 8, orientation: 0, direction: 1 },
+                    { x: 19, y: 8, orientation: 1, direction: 3 },
+                    { x: 18, y: 8, orientation: 1, direction: 3 },
+                    { x: 17, y: 8, orientation: 1, direction: 3 },
+                    { x: 16, y: 8, orientation: 1, direction: 3 },
+                    { x: 15, y: 8, orientation: 1, direction: 3 },
+                    { x: 15, y: 9, orientation: 0, direction: 1 },
+                    { x: 15, y: 10, orientation: 0, direction: 1 },
+                    { x: 15, y: 11, orientation: 0, direction: 1 },
+                    { x: 15, y: 12, orientation: 0, direction: 1 },
+                    { x: 15, y: 13, orientation: 0, direction: 1, stop: true }
+                ]
+            },
+            {
+                track: 2,
+                tiles: [
+                    { x: 15, y: 13, orientation: 0, direction: 1 },
+                    { x: 15, y: 14, orientation: 0, direction: 1 },
+                    { x: 15, y: 15, orientation: 0, direction: 1 },
+                    { x: 15, y: 16, orientation: 0, direction: 1 },
+                    { x: 15, y: 17, orientation: 0, direction: 1 },
+                    { x: 15, y: 18, orientation: 0, direction: 1 },
+                    { x: 14, y: 18, orientation: 1, direction: 3 },
+                    { x: 13, y: 18, orientation: 1, direction: 3 },
+                    { x: 13, y: 17, orientation: 0, direction: 0 },
+                    { x: 13, y: 16, orientation: 0, direction: 0 },
+                    { x: 13, y: 15, orientation: 0, direction: 0 },
+                    { x: 13, y: 14, orientation: 0, direction: 0 },
+                    { x: 12, y: 14, orientation: 1, direction: 3 },
+                    { x: 11, y: 14, orientation: 1, direction: 3 },
+                    { x: 10, y: 14, orientation: 1, direction: 3 },
+                    { x: 9, y: 14, orientation: 1, direction: 3 },
+                    { x: 8, y: 14, orientation: 1, direction: 3 },
+                    { x: 7, y: 14, orientation: 1, direction: 3 },
+                    { x: 6, y: 14, orientation: 1, direction: 3 },
+                    { x: 6, y: 15, orientation: 0, direction: 1 },
+                    { x: 6, y: 16, orientation: 0, direction: 1 },
+                    { x: 6, y: 17, orientation: 0, direction: 1 },
+                    { x: 7, y: 17, orientation: 1, direction: 2 },
+                    { x: 8, y: 17, orientation: 1, direction: 2 },
+                    { x: 9, y: 17, orientation: 1, direction: 2 },
+                    { x: 9, y: 18, orientation: 0, direction: 1 },
+                    { x: 9, y: 19, orientation: 0, direction: 1 },
+                    { x: 9, y: 20, orientation: 0, direction: 1 },
+                    { x: 8, y: 20, orientation: 1, direction: 3, stop: true }
+                ]
+            },
+            {
+                track: 3,
+                tiles: [
+                    { x: 8, y: 20, orientation: 1, direction: 3 },
+                    { x: 7, y: 20, orientation: 1, direction: 3 },
+                    { x: 6, y: 20, orientation: 1, direction: 3 },
+                    { x: 6, y: 21, orientation: 0, direction: 1 },
+                    { x: 6, y: 22, orientation: 0, direction: 1 },
+                    { x: 6, y: 23, orientation: 0, direction: 1 },
+                    { x: 6, y: 24, orientation: 0, direction: 1 },
+                    { x: 6, y: 25, orientation: 0, direction: 1 },
+                    { x: 6, y: 26, orientation: 0, direction: 1 }
+                ]
+            }
+        ]
+    },
+    {
+        river: 2,
+        tracks: [
+            {
+                track: 1,
+                tiles: [
+                    { x: 34, y: 0, orientation: 0, direction: 1 },
+                    { x: 34, y: 1, orientation: 0, direction: 1 },
+                    { x: 34, y: 2, orientation: 0, direction: 1 },
+                    { x: 34, y: 3, orientation: 0, direction: 1 },
+                    { x: 34, y: 4, orientation: 0, direction: 1 },
+                    { x: 34, y: 5, orientation: 0, direction: 1 },
+                    { x: 34, y: 6, orientation: 0, direction: 1, stop: true }
+                ]
+            },
+            {
+                track: 2,
+                tiles: [
+                    { x: 34, y: 6, orientation: 0, direction: 1 },
+                    { x: 34, y: 7, orientation: 0, direction: 1 },
+                    { x: 34, y: 8, orientation: 0, direction: 1 },
+                    { x: 34, y: 9, orientation: 0, direction: 1 },
+                    { x: 33, y: 9, orientation: 1, direction: 3 },
+                    { x: 32, y: 9, orientation: 1, direction: 3 },
+                    { x: 32, y: 10, orientation: 0, direction: 1 },
+                    { x: 32, y: 11, orientation: 0, direction: 1 },
+                    { x: 32, y: 12, orientation: 0, direction: 1 },
+                    { x: 32, y: 13, orientation: 0, direction: 1 },
+                    { x: 32, y: 14, orientation: 0, direction: 1 },
+                    { x: 32, y: 15, orientation: 0, direction: 1 },
+                    { x: 32, y: 16, orientation: 0, direction: 1 },
+                    { x: 32, y: 17, orientation: 0, direction: 1 },
+                    { x: 32, y: 19, orientation: 0, direction: 1, stop: true }
+                ]
+            },
+            {
+                track: 3,
+                tiles: [
+                    { x: 32, y: 17, orientation: 0, direction: 1 },
+                    { x: 32, y: 18, orientation: 0, direction: 1 },
+                    { x: 32, y: 19, orientation: 0, direction: 1 },
+                    { x: 32, y: 20, orientation: 0, direction: 1 },
+                    { x: 32, y: 21, orientation: 0, direction: 1 },
+                    { x: 32, y: 22, orientation: 0, direction: 1 },
+                    { x: 32, y: 23, orientation: 0, direction: 1 },
+                    { x: 32, y: 24, orientation: 0, direction: 1 },
+                    { x: 32, y: 25, orientation: 0, direction: 1 },
+                    { x: 32, y: 26, orientation: 0, direction: 1 }
+                ]
+            }
+        ]
+    }
+];
+
 var player;
 var cursors;
 var map;
@@ -96,7 +228,8 @@ SideScroller.Game.prototype = {
 //          }
       
 
-    player = this.game.add.sprite(this.game.world.centerX, this.world.centerY, 'player');
+    // player = this.game.add.sprite(this.game.world.centerX, this.world.centerY, 'player');
+    player = this.game.add.sprite(20 * 60 - 30, 120 - 30, 'player');
     player.animations.add('down', [0, 1], 10, true);
     player.animations.add('right', [2, 3], 10, true);
     player.animations.add('left', [4, 5], 10, true);
@@ -117,9 +250,45 @@ SideScroller.Game.prototype = {
     //  The smaller the value, the smooth the camera (and the longer it takes to catch up)
     this.game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
       
-      
-    // SYncronize with the other instance
+    // Syncronize with the other instance
     this.game.time.events.loop(Phaser.Timer.SECOND * 0.5, syncronize, this, player.body.sprite.position);
+      
+    // TODO
+      /*
+    var newTilesArray = [];
+    console.log('Activamos rios:');
+    for(river in rivers) {
+        var r = rivers[river];
+        for(track in r.tracks) {
+            var t = r.tracks[track];
+            for(tile in t.tiles) {
+                var tl = t.tiles[tile];
+                if(!tl.stop) {                    
+                    var animacion = '';
+                    console.log(tileToPixels(tl.x, tl.y, 60, 60, screen.height, screen.width));
+                    
+                    var newTile = this.game.add.sprite(tl.x * 60, tl.y * 60, 'fondos', 0);
+                    newTile.animations.add('flow', [0, 1], 10, true);
+                    newTilesArray.push(newTile);
+                    
+                    if(tl.orientation == 0) { animacion += 'Vertical - '  }
+                    else if(tl.orientation == 1) { animacion += 'Horizontal - ' }
+                    if(tl.direction == 0) { animacion += 'Arriba' }
+                    else if(tl.direction == 1) { animacion += 'Abajo' }
+                    else if(tl.direction == 2) { animacion += 'Derecha' }
+                    else if(tl.direction == 3) { animacion += 'Izquierda' }
+                    console.log(animacion);
+                } else {
+                    console.log('---------- End of track ', t.track , ' ----------');
+                }
+            }
+        }
+    }
+    
+    for(tile in newTilesArray) {
+        newTilesArray[tile].animations.play('flow');
+    }
+      */
    
  }, 
  
@@ -168,12 +337,12 @@ SideScroller.Game.prototype = {
 function syncronize( playerPosition ) {
     
     getJsonSync(messageGetId).then(function(data) {
-        console.log(data);
+        // console.log(data);
     });
     
     var horizontalTile = parseInt(playerPosition.x / 60);
     var verticalTile = parseInt(playerPosition.y / 60);
     postJsonSync("{'persona': '" + horizontalTile + "," + verticalTile + "'}",messageSendId).then(function(result) {
-        console.log(result);
+        // console.log(result);
     });
 }
