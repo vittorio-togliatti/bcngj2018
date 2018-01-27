@@ -29,6 +29,9 @@ Menu.prototype = {
     this.addMenuOption('Start', function () {
         game.state.start("Game");
     });
+    this.addMenuOption('Start map', function () {
+      game.state.start('Game_map');
+    });
     this.addMenuOption('Options', function () {
       console.log('You clicked Options!');
     });
