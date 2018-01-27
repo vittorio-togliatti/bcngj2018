@@ -317,11 +317,8 @@ SideScroller.Game.prototype = {
     // Water flow
     activateRiversTrack(0);
       
-<<<<<<< HEAD
     // SYncronize with the other instance
     this.game.time.events.loop(Phaser.Timer.SECOND * 0.5, syncronizeGame, this, player.body.sprite.position);
-=======
->>>>>>> 33fab81721aa76ca5355c1536482462922a9ffea
    
  }, 
  
@@ -403,15 +400,11 @@ function syncronizeGame( playerPosition ) {
     
     var horizontalTile = parseInt(playerPosition.x / 60);
     var verticalTile = parseInt(playerPosition.y / 60);
-<<<<<<< HEAD
     
     postJsonSync("{'persona': '" + horizontalTile + "," + verticalTile + "','escavadoraA': '" + estadoEscavadoraA 
                  + "','escavadoraB': '" + estadoEscavadoraB + "'}",messageSendId).then(function(result) {
         console.log(result);
-=======
-    postJsonSync("{'persona': '" + horizontalTile + "," + verticalTile + "'}",messageSendId).then(function(result) {
-        // console.log(result);
->>>>>>> 33fab81721aa76ca5355c1536482462922a9ffea
+
     });
 }
 

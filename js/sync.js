@@ -39,12 +39,6 @@ function getJsonSync(messageGetId){
 
 
 function postJsonSync(jsonString,messageSendId){
-    
-<<<<<<< HEAD
-            // console.log("Entra postJson");
-=======
-            //console.log("Entra postJson");
->>>>>>> bbd51171e2c6b47b66b18e7e760d1e4e224cc405
 
                     var deferred = new $.Deferred();
 
