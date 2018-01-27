@@ -3,6 +3,8 @@ var SideScroller = SideScroller || {};
 SideScroller.Game_map = function() {};
 
 var player;
+var escavadora;
+var escavadora2;
 var cursors;
 var map;
 
@@ -17,6 +19,15 @@ var escavadoras = {
 	escavadora1: 0,
 	escavadora2: 0,
 };
+
+var counter = 0;
+var counter2 = 0;
+var isButton1 = false;
+var isButton2 = false;
+
+
+var nivelPiedras1 = 5;
+var nivelPiedras2 = 5;
 
 
 SideScroller.Game_map.prototype = {
@@ -60,6 +71,7 @@ SideScroller.Game_map.prototype = {
     //this.game.time.advancedTiming = true;
     this.load.spritesheet('fondos','img/Fondos_2.png', 20, 20, 30);
     this.load.spritesheet('player','img/Player.png',20,20);
+    this.game.load.image('redbutton', 'img/RedButton.png');
     },
  
   create: function() {
@@ -100,16 +112,32 @@ SideScroller.Game_map.prototype = {
     // -------------------------------------------------------
     player = this.game.add.sprite(38*20, 25*20, 'player');
     player.frame = 0;
-
+      
+    escavadora = this.game.add.sprite(36*20 -10, 8*20 -10, 'fondos', 7);
+    this.game.physics.p2.enable(escavadora);
+    escavadora.body.fixedRotation = true;
+    escavadora.body.immovable = true;
+      
+    escavadora2 = this.game.add.sprite(17*20 -10, 14*20 -10, 'fondos', 7);
+    this.game.physics.p2.enable(escavadora2);
+    escavadora2.body.fixedRotation = true;
+    escavadora2.body.immovable = true;
+    
     this.game.physics.p2.enable(player);
-
     player.body.fixedRotation = true;
+      
+    
+      
+
+    
+    
+    
 
     cursors = this.game.input.keyboard.createCursorKeys();
     // -------------------------------------------------------
 
     // SYncronize with the other instance
-    this.game.time.events.loop(Phaser.Timer.SECOND * 0.5, syncronizeMap, this, player.body.sprite.position);
+    this.game.time.events.loop(Phaser.Timer.SECOND * 0.5, syncronizeMap, this);
     
  }, 
  
@@ -119,30 +147,6 @@ SideScroller.Game_map.prototype = {
         player.body.y = jsonUpdate.persona[1]*20+10;
     }
 	 
-	if(escavadoras.escavadora1 == '1'
-	  && this.game.input.keyboard.isDown(Phaser.KeyCode.SPACEBAR)){
-		if(this.pulsaciones < 10){ this.pulsaciones++; }
-		else{
-			this.pulsaciones = 0;
-			postJsonSync("{'escavadoraA': 2'}",messageSendId2).then(function(result) {
-				console.log(result);
-			});
-		}
-	}
-	if(escavadoras.escavadora2 == '1'
-			&& this.game.input.keyboard.isDown(Phaser.KeyCode.SPACEBAR)){
-		if(this.pulsaciones < 10){ this.pulsaciones++; }
-		else{
-			this.pulsaciones = 0;
-			postJsonSync("{'escavadoraB': 2'}",messageSendId2).then(function(result) {
-				console.log(result);
-			});
-		}
-	}
-	
-	/*if(contador){
-	
-	}*/
     
   },
  
@@ -152,34 +156,90 @@ SideScroller.Game_map.prototype = {
  
               //this.game.debug.cameraInfo(this.game.camera, 32, 32);
         
-    }
+    },
+    
+    
     
     
 };
 
 //functions
-function syncronizeMap( playerPosition ) {
+function syncronizeMap() {
     
     getJsonSync(messageGetId2).then(function(data) {
         jsonUpdate.persona = JSON.parse(data.name.replace(/'/g, '"')).persona.split(",");
-        //console.log("Datos escavación:", data);
+        jsonUpdate.escavadoraA = JSON.parse(data.name.replace(/'/g, '"')).escavadoraA;
+        console.log("Datos escavación:", jsonUpdate.escavadoraA );
         
-		if(data.name.escavadoraA == '1'){
+		if((jsonUpdate.escavadoraA  == 1) && (!isButton1)){
+             escavadora.loadTexture('fondos', 8, false);
+            isButton1 = true;
 			escavadoras.escavadora1 = true;
+            var image = game.add.sprite(730, 530, 'redbutton');
+            image.scale.setTo(0.2,0.2);
+            image.anchor.set(0.5);
+            image.inputEnabled = true;
+            image.events.onInputDown.add(listenerDown, this);
+            image.events.onInputUp.add(listenerUp, this);
+            
 		}
-		if(data.name.escavadoraB == '1'){
-			escavadoras.escavadora2 = true;
+        
+        if((jsonUpdate.escavadoraB  == 1) && (!isButton2)){
+             escavadora2.loadTexture('fondos', 8, false);
+            isButton2 = true;
+            var image = game.add.sprite(30, 530, 'redbutton');
+            image.scale.setTo(0.2,0.2);
+            image.anchor.set(0.5);
+            image.inputEnabled = true;
+            image.events.onInputDown.add(listenerDown2, this);
+            image.events.onInputUp.add(listenerUp2, this);
+            
 		}
+
         
     });
     
     // {'escavadora': '1','rocas': '1'}
     
-    /*var horizontalTile = parseInt(playerPosition.x);
-    var verticalTile = parseInt(playerPosition.y);
-    postJsonSync("{'persona': '" + horizontalTile + "," + verticalTile + "'}",messageSendId2).then(function(result) {
+    
+    postJsonSync("{'nivelPiedras1': '" + nivelPiedras1 + "','nivelPiedras2': '" + nivelPiedras2 + "'}",messageSendId2).then(function(result) {
         console.log(result);
-    });*/
+    });
 }
+
+function listenerDown () {
+
+    counter++;
+    console.log(counter);
+    escavadora.loadTexture('fondos', 9, false);
+    if (counter == 10){
+        counter = 0;
+        nivelPiedras1--;
+    }
+
+}
+
+function listenerUp () {
+    escavadora.loadTexture('fondos', 8, false);
+}
+
+
+function listenerDown2 () {
+
+    counter2++;
+    console.log(counter2);
+    escavadora2.loadTexture('fondos', 9, false);
+    if (counter2 == 10){
+        counter2 = 0;
+        nivelPiedras2--;
+    }
+
+}
+
+function listenerUp2 () {
+    escavadora2.loadTexture('fondos', 8, false);
+}
+
+
 
 
