@@ -2,42 +2,100 @@ var SideScroller = SideScroller || {};
  
 SideScroller.Game_map = function() {};
 
+var mapa =
+    "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,3,4,4,4,4,4,4,4,4,4,4,4,4,4,3,4,4,4,4,4,\n" + 
+    "5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,3,5,5,5,5,5,5,5,5,5,5,5,5,5,3,5,5,5,5,5,\n" + 
+    "5,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,2,2,5,\n" + 
+    "5,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,1,0,1,5,\n" + 
+    "5,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,0,2,0,5,\n" + 
+    "5,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,0,2,0,5,\n" + 
+    "5,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,0,2,0,5,\n" + 
+    "5,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,2,2,2,2,2,2,2,2,2,2,2,1,8,0,2,0,5,\n" + 
+    "5,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,0,2,0,5,\n" + 
+    "5,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,2,0,2,0,5,\n" +
+    "5,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,2,0,2,0,5,\n" +
+    "5,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,1,1,2,0,5,\n" +
+    "5,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,0,2,2,0,5,\n" +
+    "5,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,8,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,0,2,2,0,5,\n" +
+    "5,2,2,2,2,2,3,3,3,3,3,3,3,3,2,3,2,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,0,2,2,0,5,\n" +
+    "5,2,2,2,2,2,3,2,2,2,2,2,2,3,2,3,2,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,0,2,2,0,5,\n" +
+    "5,2,2,2,2,2,3,2,2,2,2,0,2,3,2,3,2,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,0,2,2,0,5,\n" +
+    "5,2,2,2,2,2,3,3,3,3,2,0,2,3,2,3,2,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,0,2,2,0,5,\n" +
+    "5,2,2,2,2,2,2,2,2,3,2,0,2,3,3,3,2,0,2,2,1,0,0,0,0,0,0,0,0,0,0,0,6,0,0,1,2,2,0,5,\n" +
+    "5,0,0,0,0,0,0,0,1,3,2,0,2,2,2,2,2,0,2,2,0,2,2,2,2,2,2,2,2,2,2,2,3,2,2,2,2,2,0,5,\n" +
+    "5,2,2,2,2,2,3,3,6,3,2,0,2,1,0,0,0,1,0,0,1,2,2,2,2,2,2,2,2,2,2,2,3,2,2,2,2,2,0,5,\n" +
+    "5,2,2,2,2,2,3,2,0,2,2,0,2,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,2,2,2,0,5,\n" +
+    "5,2,2,2,2,2,3,2,0,2,2,0,2,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,2,2,2,0,5,\n" +
+    "5,2,2,2,2,2,3,2,0,2,2,0,2,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,2,2,2,0,5,\n" +
+    "5,2,2,2,2,2,3,2,0,2,2,0,2,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,2,2,2,0,5,\n" +
+    "5,2,2,2,2,2,3,2,1,0,0,1,0,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,2,2,2,9,5,\n" +
+    "5,2,2,2,2,2,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,2,2,2,2,5,\n" +
+    "3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,\n" +
+    "3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,\n" +
+    "3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3";
+
 var player;
 var cursors;
+var map;
 
 SideScroller.Game_map.prototype = {
  
   preload: function(){
- 
-      //this.game.time.advancedTiming = true;
-    this.load.image('background', 'img/debug-grid-1920x1920.png');
-    this.load.image('player','img/phaser-dude.png');
+    //this.game.time.advancedTiming = true;
+    this.load.image('background', 'img/Fondos.png');
+    this.load.spritesheet('fondos','img/Fondos.png', 20, 20, 6);
+    this.load.image('player','img/player.png');
     },
  
   create: function() {
-      this.game.add.tileSprite(0, 0, 1920, 1920, 'background');
+    this.game.add.tileSprite(0, 0, 20, 200, 'background');
 
-    this.game.world.setBounds(0, 0, 1920, 1920);
+    //this.game.world.setBounds(0, 0, 20, 20);
+      
+    // Mapa
+    //  Add data to the cache
+    this.game.cache.addTilemap('dynamicMap', null, mapa, Phaser.Tilemap.CSV);
+
+    //  Create our map (the 16x16 is the tile size)
+    map = this.game.add.tilemap('dynamicMap', 20, 20);
+
+    //  'tiles' = cache image key, 16x16 = tile size
+    map.addTilesetImage('fondos', 'fondos', 20, 20);
+
+    //  0 is important
+    layer = map.createLayer(0);
+
+    //  Scroll it
+    layer.resizeWorld();  
 
     this.game.physics.startSystem(Phaser.Physics.P2JS);
-    this.game.physics.startSystem(Phaser.Physics.ARCADE);
+    //this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
-    player = this.game.add.sprite(this.game.world.centerX, this.world.centerY, 'player');
+    //player = this.game.add.sprite(58*20, 55*20, 'background');
+    //this.game.add.sprite(58*20, 55*20, 'background');
+
+    //this.game.physics.p2.enable(player);
+
+    //player.body.fixedRotation = true;
+
+    cursors = this.game.input.keyboard.createCursorKeys();
+      
+    // -------------------------------------------------------
+    player = this.game.add.sprite(38*20, 25*20, 'player');
 
     this.game.physics.p2.enable(player);
 
     player.body.fixedRotation = true;
 
     cursors = this.game.input.keyboard.createCursorKeys();
+    // -------------------------------------------------------
 
     //  Notice that the sprite doesn't have any momentum at all,
     //  it's all just set by the camera follow type.
     //  0.1 is the amount of linear interpolation to use.
     //  The smaller the value, the smooth the camera (and the longer it takes to catch up)
     this.game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
-      
-      
-   
+    
  }, 
  
   update: function() {
@@ -67,7 +125,7 @@ SideScroller.Game_map.prototype = {
  
     {
  
-              this.game.debug.cameraInfo(this.game.camera, 32, 32);
+              //this.game.debug.cameraInfo(this.game.camera, 32, 32);
         
     }
     
