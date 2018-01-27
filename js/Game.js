@@ -285,16 +285,16 @@ SideScroller.Game.prototype = {
                   tile.body.collides([this.hombreCollisionGroup]);
                   
               }  else if (mapaJson.mapa[y][x] == 7){
-                    var escavadora = this.escavadoras.create(x * 60 + 30,y * 60 + 30, 'fondos',7);
+                    var escavadora = this.escavadoras.create(x * 60 + 30,y * 60 + 30, 'fondos', 7);
                     this.game.physics.p2.enable([escavadora], false);
                     escavadora.body.static = true;
                     escavadora.body.setCollisionGroup( this.escavadorasCollisionGroup );
-                    escavadora.body.collides([this.hombreCollisionGroup],this.activaEscavadora, this);
+                    escavadora.body.collides([this.hombreCollisionGroup], this.activaEscavadora, this);
               }
           }
       }
       
-    player = this.game.add.sprite(2360, 0, 'player');
+    player = this.game.add.sprite(36 * 60, 10 * 60, 'player');
     player.animations.add('down', [0, 1], 10, true);
     player.animations.add('right', [2, 3], 10, true);
     player.animations.add('left', [4, 5], 10, true);
@@ -317,24 +317,8 @@ SideScroller.Game.prototype = {
     // Syncronize with the other instance
     this.game.time.events.loop(Phaser.Timer.SECOND * 0.5, syncronizeGame, this, player.body.sprite.position);
       
-    
     // Water flow
-    var tiles0 = rivers[0].tracks[0].tiles;
-    var tiles1 = rivers[1].tracks[0].tiles;
-      
-    for(var i = 0; i < tiles0.length; i++) {
-        var newTile = this.game.add.sprite(tiles0[i].x * 60, tiles0[i].y * 60, 'fondos', 1);
-        newTile.animations.add('flow', [1, 5], 2, false);
-        riverTiles0.push(newTile);
-    }
-      
-    for(var i = 0; i < tiles1.length; i++) {
-        var newTile = this.game.add.sprite(tiles1[i].x * 60, tiles1[i].y * 60, 'fondos', 1);
-        newTile.animations.add('flow', [1, 5], 2, false);
-        riverTiles1.push(newTile);
-    }
-      
-    loopResult = this.game.time.events.loop(Phaser.Timer.SECOND * 2, animateWaterTile, this, riverTiles1);
+    activateRiversTrack(0);
       
    
  }, 
@@ -400,7 +384,7 @@ activaEscavadora: function(escavadora, hombre)
 function syncronizeGame( playerPosition ) {
     
     getJsonSync(messageGetId).then(function(data) {
-        console.log(" ****** DATA: ", data);
+        //console.log(" ****** DATA: ", data);
          
         var dataFake = {"name":"{'escavadora': '1','piedras': '1'}"};
         
@@ -417,6 +401,29 @@ function syncronizeGame( playerPosition ) {
     });
 }
 
+function activateRiversTrack( trackId ) {
+    
+    var tiles0 = rivers[0].tracks[trackId].tiles;
+    var tiles1 = rivers[1].tracks[trackId].tiles;
+    
+    console.log(tiles0);
+    console.log(tiles1);
+      
+    for(var i = 0; i < tiles0.length; i++) {
+        var newTile = this.game.add.sprite(tiles0[i].x * 60, tiles0[i].y * 60, 'fondos', 1);
+        newTile.animations.add('flow', [1, 5], 2, false);
+        riverTiles0.push(newTile);
+    }
+      
+    for(var i = 0; i < tiles1.length; i++) {
+        var newTile = this.game.add.sprite(tiles1[i].x * 60, tiles1[i].y * 60, 'fondos', 1);
+        newTile.animations.add('flow', [1, 5], 2, false);
+        riverTiles1.push(newTile);
+    }
+      
+    loopResult = this.game.time.events.loop(Phaser.Timer.SECOND * 2, animateWaterTile, this, riverTiles1);
+}
+
 function animateWaterTile( riverTiles ) {
     
     console.log('Animating tile ', currentTile);
@@ -428,5 +435,8 @@ function animateWaterTile( riverTiles ) {
         game.time.events.remove(loopResult);
         currentTile = 0;
         riverTiles = [];
+        
+        console.log('currentTile: ', currentTile);
+        console.log('riverTiles: ', riverTiles);
     }
 }
