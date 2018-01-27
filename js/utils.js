@@ -1,11 +1,13 @@
-funtion pixelsToTile(x,y,tileHeight,tileWidth,screenHeight, screenWidth){
+function pixelsToTile(x,y,tileHeight,tileWidth,screenHeight, screenWidth){
     var tilePosition = {x,y};
     
     return position;
 }
 
-funtion tileToPixels(tileX,tileY,tileHeight,tileWidth,screenHeight, screenWidth){
+function tileToPixels(tileX,tileY,tileHeight,tileWidth,screenHeight, screenWidth){
     var  pixelPosition = {x,y};
     
     return pixelPosition;
 }
+
+

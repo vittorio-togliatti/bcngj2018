@@ -12,18 +12,53 @@ SideScroller.Game.prototype = {
       //this.game.time.advancedTiming = true;
     this.load.image('background', 'img/debug-grid-1920x1920.png');
     this.load.image('player','img/phaser-dude.png');
+    this.load.image('casa','img/casa.png');
+    this.load.image('calle','img/calle-dude.png');
     },
  
   create: function() {
-      this.game.add.tileSprite(0, 0, 1920, 1920, 'background');
+     
+      
+      getJsonSync().then(function(data) {
+                            console.log(data);
+                        });
+      
+      postJsonSync("{'persona':'300,200'}").then(function(result) {
+                            console.log(result);
+                        });
+      
+      
+    this.game.add.tileSprite(0, 0, 1920, 1920, 'background');
 
     this.game.world.setBounds(0, 0, 1920, 1920);
 
     this.game.physics.startSystem(Phaser.Physics.P2JS);
     //this.game.physics.startSystem(Phaser.Physics.ARCADE);
+      
+    this.game.physics.p2.gravity.y = 0;
+      var casa;
+      
+          for(i=0;i<10;i++){
+            casa = this.game.add.sprite(30 , 30 + i * 60, 'casa');
+            this.game.physics.p2.enable(casa);
+            casa.body.static = true;
+          }
+      
+      for(i=0;i<10;i++){
+            casa = this.game.add.sprite(30 , 30 + i * 60, 'casa');
+            this.game.physics.p2.enable(casa);
+            casa.body.static = true;
+          }
+      
 
     player = this.game.add.sprite(this.game.world.centerX, this.world.centerY, 'player');
+      
+    this.game.physics.p2.enable(player);
+      
+      
+      
 
+      
     this.game.physics.p2.enable(player);
 
     player.body.fixedRotation = true;
@@ -74,5 +109,3 @@ SideScroller.Game.prototype = {
     //functions
     
 };
-
-
