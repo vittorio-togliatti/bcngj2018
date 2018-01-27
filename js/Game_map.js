@@ -6,6 +6,9 @@ var player;
 var cursors;
 var map;
 
+var messageSendId2 = '5a6bf3777f0cfc4ec6cc7932';
+var messageGetId2 = '5a6bf3de7f0cfc4ec6cc7933';
+
 SideScroller.Game_map.prototype = {
  
   preload: function(){
@@ -93,11 +96,8 @@ SideScroller.Game_map.prototype = {
     cursors = this.game.input.keyboard.createCursorKeys();
     // -------------------------------------------------------
 
-    //  Notice that the sprite doesn't have any momentum at all,
-    //  it's all just set by the camera follow type.
-    //  0.1 is the amount of linear interpolation to use.
-    //  The smaller the value, the smooth the camera (and the longer it takes to catch up)
-    //this.game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
+    // SYncronize with the other instance
+    this.game.time.events.loop(Phaser.Timer.SECOND * 2, syncronize, this, player.body.sprite.position);
     
  }, 
  
@@ -121,6 +121,10 @@ SideScroller.Game_map.prototype = {
     {
         player.body.moveRight(300);
     }
+      
+    var playerPosition = jsonUpdate.rocks1Level;
+
+    player.body.sprite.position = playerPosition;
             
   },
  
@@ -135,5 +139,18 @@ SideScroller.Game_map.prototype = {
     //functions
     
 };
+
+function syncronize( playerPosition ) {
+    
+    getJsonSync(messageGetId2).then(function(data) {
+        console.log(data);
+    });
+    
+    var horizontalTile = parseInt(playerPosition.x / 60);
+    var verticalTile = parseInt(playerPosition.y / 60);
+    postJsonSync("{'persona': '" + horizontalTile + "," + verticalTile + "'}",messageSendId2).then(function(result) {
+        console.log(result);
+    });
+}
 
 

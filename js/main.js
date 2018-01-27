@@ -15,6 +15,8 @@ var gravity_value = 130;
 var windowHeight = 600;
 var windowWidth = 800;
 
+var jsonUpdate = {};
+
 var currentScaleFactor = windowHeight / originalHeight;
     windowHeight = originalHeight;
     windowWidth = windowWidth / currentScaleFactor;
