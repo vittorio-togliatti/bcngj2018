@@ -1,33 +1,40 @@
-var SideScroller = SideScroller || {};
- 
-SideScroller.Menu = function() {};
+Menu = function() {};
 
-
-SideScroller.Menu.prototype = {
- 
-  preload: function(){
- 
-    },
+Menu.prototype = {
+    
+  addMenuOption: function(text, callback) {
+    var txt = game.add.text(100, (this.optionCount * 80) + 200, text, style.navitem.default);
+    txt.inputEnabled = true;
+    txt.events.onInputUp.add(callback);
+    txt.events.onInputOver.add(function (target) {
+      target.setStyle(style.navitem.hover);
+    });
+    txt.events.onInputOut.add(function (target) {
+      target.setStyle(style.navitem.default);
+    });
+    this.optionCount ++;
+  },
+    
+  init: function() {
+      this.title = game.make.text(game.world.centerX, 100, 'Game title', {fill: 'white'});
+      this.title.anchor.set(0.5);
+      this.optionCount = 1;
+  },
  
   create: function() {
-    this.game.stage.backgroundColor = '#000000';
-    this.game.world.setBounds(0, 0, windowWidth, windowHeight);
-    
-      //this.clicAudio = this.add.audio('audio_button'); 
-    //this.bkg = this.game.add.sprite(0, 0,  'portada');
-    
-    }, 
- 
-  update: function() {
-     
-    },
- 
-  render: function(){
-      
-      console.log('Helloworld');
-        
-    }
+    game.stage.disableVisibilityChange = true;
+    //this.game.add.sprite(0, 0, 'menu-bg');
+    game.add.existing(this.title);
+
+    this.addMenuOption('Start', function () {
+        game.state.start("Game");
+    });
+    this.addMenuOption('Options', function () {
+      console.log('You clicked Options!');
+    });
+    this.addMenuOption('Credits', function () {
+      console.log('You clicked Credits!');
+    });
+  },
     
 };
-
-

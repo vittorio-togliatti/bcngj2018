@@ -49,6 +49,7 @@ SideScroller.Game_map.prototype = {
     },
  
   create: function() {
+      
     this.game.add.tileSprite(0, 0, 20, 200, 'background');
 
     //this.game.world.setBounds(0, 0, 20, 20);

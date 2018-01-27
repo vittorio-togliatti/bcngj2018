@@ -1,49 +1,62 @@
-var SideScroller = SideScroller || {};
- 
-SideScroller.Splash = function() {};
+Splash = function() {};
 
+Splash.prototype = {
 
-SideScroller.Splash.prototype = {
- 
-  preload: function(){
- 
-    },
- 
+  loadScripts: function () {
+    game.load.script('style', 'js/style.js');
+    game.load.script('menu','js/Menu.js');
+    game.load.script('game', 'js/Game.js');
+    game.load.script('game_map', 'js/Game_map.js');
+    game.load.script('gameover','js/Gameover.js');
+    game.load.script('credits', 'js/Credits.js');
+    game.load.script('options', 'js/Options.js');
+  },
+
+  loadImages: function () {
+    //this.game.load.image('menu-bg', 'assets/menu_bg.png');
+    game.load.image('options-bg', 'assets/options-bg.jpg');
+    game.load.image('gameover-bg', 'assets/gameover-bg.jpg');
+  },
+    
+  init: function () {
+    this.loadingBar = game.make.sprite(game.world.centerX-(387/2), 400, "loading");
+    this.logo       = game.make.sprite(game.world.centerX, 200, 'game_logo');
+    this.status     = game.make.text(game.world.centerX, 380, 'Loading...', {fill: 'white'});
+    utils.centerGameObjects([this.logo, this.status]);
+  },
+
+  preload: function () {
+    //this.game.add.sprite(0, 0, 'splash_bg');
+    game.add.existing(this.logo).scale.setTo(0.5);
+    game.add.existing(this.loadingBar);
+    game.add.existing(this.status);
+    this.load.setPreloadSprite(this.loadingBar);
+
+    this.loadScripts();
+    this.loadImages();
+  },
+    
+  addGameStates: function () {
+    game.state.add('Menu', Menu);
+    game.state.add('Game', SideScroller.Game);
+    game.state.add('Game_map', SideScroller.Game_map);
+    game.state.add('GameOver', SideScroller.GameOver);
+    game.state.add('Credits', SideScroller.Credits);
+    game.state.add('Options', SideScroller.Options);
+  },
+    
   create: function() {
       
-    this.game.stage.backgroundColor = '#000000';
+    game.stage.backgroundColor = '#000000';
       
-    //this.splash1 = this.game.add.sprite(0, 0, 'splash1');
-    //this.splash1.alpha = 0.1;
+    this.status.setText('Ready!');
+    this.addGameStates();
       
-    //this.tween1 = this.game.add.tween(this.splash1).to( { alpha: 1 }, 1000, Phaser.Easing.Sinusoidal.InOut, true, 0, 0, true);
-    //this.tween1.onComplete.add(this.gotoTween2, this);
-    }, 
- 
-  update: function() {
-     
-    },
- 
-  render: function(){
-        
-    },
-    
-//  gotoTween2: function(){
-//        this.splash1.kill();
-//         var splash2 = this.game.add.sprite(0, 0, 'splash2');
-//         splash2.alpha = 0.1;
-//        
-//        var tween2 = this.game.add.tween(splash2).to( { alpha: 1 }, 1000, Phaser.Easing.Sinusoidal.InOut, true, 0, 0, true);
-//        
-//        tween2.onComplete.add(this.gotoMenu, this);
-//    
-//    
-//        
-//    },
-    
-    gotoMenu: function(){
-         this.state.start('Menu');
-    }
+    setTimeout(function () {
+      game.state.start("Menu");
+    }, 1000);
+      
+  }
     
 };
 

@@ -1,9 +1,7 @@
-var SideScroller = SideScroller || {};
-
 var originalHeight = 600;
 var originalWidth = 800;
 
-//parametros de juego
+// Parametros de juego
 var bgk_speed = 0.5;
 var bgk_middle_speed = 0.7;
 var bgk_front_speed = 1.5;
@@ -14,25 +12,6 @@ var groundObjectsSpeed = -150;
 var vertical_acceleration = 6;
 var gravity_value = 130;
 
-
-
-//var tempWindowWidth = window.screen.availWidth * window.devicePixelRatio;
-//var tempWindowHeight = window.screen.availHeight * window.devicePixelRatio;
-//
-//var windowWidth;
-//var windowHeight;
-//
-//if (tempWindowWidth > tempWindowHeight){
-//    windowWidth = tempWindowWidth;
-//    windowHeight = tempWindowHeight;
-//} else { //se han recojido en posición vertical
-//    windowWidth = tempWindowHeight;
-//    windowHeight = tempWindowWidth;
-//}
-
-//var windowHeight = 1005;
-//var windowWidth = 1920;
-
 var windowHeight = 600;
 var windowWidth = 800;
 
@@ -40,18 +19,26 @@ var currentScaleFactor = windowHeight / originalHeight;
     windowHeight = originalHeight;
     windowWidth = windowWidth / currentScaleFactor;
    
-SideScroller.game = new Phaser.Game(windowWidth, windowHeight, Phaser.AUTO, '','','',false,'');
+var game = new Phaser.Game(windowWidth, windowHeight, Phaser.AUTO, '','','',false,'');
 
-//var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
-// 
+Main = function () {};
 
-//SideScroller.game.state.add('Boot', SideScroller.Boot);
-//SideScroller.game.state.add('Splash', SideScroller.Splash);
-//SideScroller.game.state.add('Preload', SideScroller.Preload);
-//SideScroller.game.state.add('Menu', SideScroller.Menu);
-SideScroller.game.state.add('Game', SideScroller.Game);
-SideScroller.game.state.add('Game_map', SideScroller.Game_map);
-//SideScroller.game.state.add('Credits', SideScroller.Credits);
+Main.prototype = {
 
-//SideScroller.game.state.start('Game');
-SideScroller.game.state.start('Game_map');
+  preload: function () {
+      console.log('preload?');
+    //SideScroller.game.load.image('splash_bg',    'assets/splash_bg.png');
+    game.load.image('loading',  'assets/loading.png');
+    game.load.image('game_logo',    'assets/game_logo.png');
+    game.load.script('splash',  'js/Splash.js');
+  },
+
+  create: function () {
+    game.state.add('Splash', Splash);
+    game.state.start('Splash');
+  }
+
+};
+
+game.state.add('Main', Main);
+game.state.start('Main');
