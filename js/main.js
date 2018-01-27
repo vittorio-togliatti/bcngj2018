@@ -26,7 +26,6 @@ Main = function () {};
 Main.prototype = {
 
   preload: function () {
-      console.log('preload?');
     //SideScroller.game.load.image('splash_bg',    'assets/splash_bg.png');
     game.load.image('loading',  'assets/loading.png');
     game.load.image('game_logo',    'assets/game_logo.png');

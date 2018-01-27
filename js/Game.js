@@ -78,40 +78,159 @@ var mapa1 =
         "5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5\n" +
         "5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5";
 
+var rivers = [
+    {
+        river: 1,
+        tracks: [
+            {
+                track: 1,
+                tiles: [
+                    { x: 20, y: 0, initial: 30, animated: 1 },
+                    { x: 20, y: 1, initial: 30, animated: 1 },
+                    { x: 20, y: 2, initial: 30, animated: 1 },
+                    { x: 20, y: 3, initial: 30, animated: 1 },
+                    { x: 20, y: 4, initial: 30, animated: 1 },
+                    { x: 20, y: 5, initial: 30, animated: 1 },
+                    { x: 20, y: 6, initial: 30, animated: 1 },
+                    { x: 20, y: 7, initial: 30, animated: 1 },
+                    { x: 20, y: 8, initial: 33, animated: 21 },
+                    { x: 19, y: 8, initial: 31, animated: 2 },
+                    { x: 18, y: 8, initial: 31, animated: 2 },
+                    { x: 17, y: 8, initial: 31, animated: 2 },
+                    { x: 16, y: 8, initial: 31, animated: 2 },
+                    { x: 15, y: 8, initial: 34, animated: 22 },
+                    { x: 15, y: 9, initial: 30, animated: 1 },
+                    { x: 15, y: 10, initial: 30, animated: 1 },
+                    { x: 15, y: 11, initial: 30, animated: 1 },
+                    { x: 15, y: 12, initial: 30, animated: 1 },
+                    { x: 15, y: 13, initial: 30, animated: 1 }
+                ]
+            },
+            {
+                track: 2,
+                tiles: [
+                    { x: 15, y: 14, initial: 30, animated: 1 },
+                    { x: 15, y: 15, initial: 30, animated: 1 },
+                    { x: 15, y: 16, initial: 30, animated: 1 },
+                    { x: 15, y: 17, initial: 30, animated: 1 },
+                    { x: 15, y: 18, initial: 33, animated: 21 },
+                    { x: 14, y: 18, initial: 31, animated: 2 },
+                    { x: 13, y: 18, initial: 32, animated: 20 },
+                    { x: 13, y: 17, initial: 30, animated: 1 },
+                    { x: 13, y: 16, initial: 30, animated: 1 },
+                    { x: 13, y: 15, initial: 30, animated: 1 },
+                    { x: 13, y: 14, initial: 35, animated: 23 },
+                    { x: 12, y: 14, initial: 31, animated: 2 },
+                    { x: 11, y: 14, initial: 31, animated: 2 },
+                    { x: 10, y: 14, initial: 31, animated: 2 },
+                    { x: 9, y: 14, initial: 31, animated: 2 },
+                    { x: 8, y: 14, initial: 31, animated: 2 },
+                    { x: 7, y: 14, initial: 31, animated: 2 },
+                    { x: 6, y: 14, initial: 34, animated: 22 },
+                    { x: 6, y: 15, initial: 30, animated: 1 },
+                    { x: 6, y: 16, initial: 30, animated: 1 },
+                    { x: 6, y: 17, initial: 32, animated: 20 },
+                    { x: 7, y: 17, initial: 31, animated: 2 },
+                    { x: 8, y: 17, initial: 31, animated: 2 },
+                    { x: 9, y: 17, initial: 35, animated: 23 },
+                    { x: 9, y: 18, initial: 30, animated: 1 },
+                    { x: 9, y: 19, initial: 30, animated: 1 },
+                    { x: 9, y: 20, initial: 33, animated: 21 },
+                    { x: 8, y: 20, initial: 24, animated: 6 },
+                    { x: 7, y: 20, initial: 31, animated: 2 },
+                    { x: 6, y: 20, initial: 34, animated: 22 },
+                    { x: 6, y: 21, initial: 30, animated: 1 },
+                    { x: 6, y: 22, initial: 30, animated: 1 },
+                    { x: 6, y: 23, initial: 30, animated: 1 },
+                    { x: 6, y: 24, initial: 30, animated: 1 },
+                    { x: 6, y: 25, initial: 30, animated: 1 },
+                    { x: 6, y: 26, initial: 30, animated: 1 }
+                ]
+            }
+        ]
+    },
+    {
+        river: 2,
+        tracks: [
+            {
+                track: 1,
+                tiles: [
+                    { x: 34, y: 0, initial: 30, animated: 1 },
+                    { x: 34, y: 1, initial: 30, animated: 1 },
+                    { x: 34, y: 2, initial: 30, animated: 1 },
+                    { x: 34, y: 3, initial: 30, animated: 1 },
+                    { x: 34, y: 4, initial: 30, animated: 1 },
+                    { x: 34, y: 5, initial: 30, animated: 1 },
+                    { x: 34, y: 6, initial: 30, animated: 1 }
+                ]
+            },
+            {
+                track: 2,
+                tiles: [
+                    { x: 34, y: 7, initial: 19, animated: 1 },
+                    { x: 34, y: 8, initial: 30, animated: 1 },
+                    { x: 34, y: 9, initial: 33, animated: 21 },
+                    { x: 33, y: 9, initial: 31, animated: 2 },
+                    { x: 32, y: 9, initial: 34, animated: 22 },
+                    { x: 32, y: 10, initial: 30, animated: 1 },
+                    { x: 32, y: 11, initial: 30, animated: 1 },
+                    { x: 32, y: 12, initial: 30, animated: 1 },
+                    { x: 32, y: 13, initial: 30, animated: 1 },
+                    { x: 32, y: 14, initial: 30, animated: 1 },
+                    { x: 32, y: 15, initial: 30, animated: 1 },
+                    { x: 32, y: 16, initial: 30, animated: 1 },
+                    { x: 32, y: 17, initial: 30, animated: 1 },
+                    { x: 32, y: 18, initial: 24, animated: 6 },
+                    { x: 32, y: 19, initial: 30, animated: 1 },
+                    { x: 32, y: 20, initial: 30, animated: 1 },
+                    { x: 32, y: 21, initial: 30, animated: 1 },
+                    { x: 32, y: 22, initial: 30, animated: 1 },
+                    { x: 32, y: 23, initial: 30, animated: 1 },
+                    { x: 32, y: 24, initial: 30, animated: 1 },
+                    { x: 32, y: 25, initial: 30, animated: 1 },
+                    { x: 32, y: 26, initial: 30, animated: 1 }
+                ]
+            }
+        ]
+    }
+];
+
 var player;
 var cursors;
 var map;
 
+// TODO
+var loopResult;
+var riverTiles0 = [];
+var riverTiles1 = [];
+var currentTile = 0;
+
 SideScroller.Game.prototype = {
  
   preload: function(){
- 
-      //this.game.time.advancedTiming = true;
     this.load.image('background', 'img/debug-grid.png');
     this.load.spritesheet('fondos','img/Fondos_60.png', 60, 60);
-    
-      
-    // this.load.image('player','img/phaser-dude.png');
     this.load.spritesheet('player','img/Player_60.png', 60, 60);
-      
     this.load.image('casa','img/casa.png');
     this.load.image('calle','img/calle.png');
-    },
+  },
  
   create: function() {
       
     this.game.add.tileSprite(0, 0, 2400, 1800, 'background');
     this.game.world.setBounds(0, 0, 2400, 1800);
       
+    // Mapa
+    // Add data to the cache
     this.game.cache.addTilemap('dynamicMap', null, mapa1, Phaser.Tilemap.CSV);
 
     //  Create our map (the 16x16 is the tile size)
     map = this.game.add.tilemap('dynamicMap', 60, 60);
       
-    //  'tiles' = cache image key, 16x16 = tile size
+    // 'tiles' = cache image key, 16x16 = tile size
     map.addTilesetImage('fondos', 'fondos', 60, 60);
       
-    //  0 is important
+    // 0 is important
     layer = map.createLayer(0);
 
     // Scroll it
@@ -162,19 +281,17 @@ SideScroller.Game.prototype = {
                   tile.body.collides([this.hombreCollisionGroup]);
                   
               }  else if (mapaJson.mapa[y][x] == 7){
-                    var escavadora = this.escavadoras.create(x * 60 + 30,y * 60 + 30, 'fondos',7);
-                    escavadora.name = y;
-                    console.log("Columna escavadora:  "+ escavadora.name );
+
+                    var escavadora = this.escavadoras.create(x * 60 + 30,y * 60 + 30, 'fondos', 7);
                     this.game.physics.p2.enable([escavadora], false);
                     escavadora.body.static = true;
                     escavadora.body.setCollisionGroup( this.escavadorasCollisionGroup );
-                    escavadora.body.collides([this.hombreCollisionGroup],this.activaEscavadora, this);
+                    escavadora.body.collides([this.hombreCollisionGroup], this.activaEscavadora, this);
               }
           }
       }
       
-      
-    player = this.game.add.sprite(2360, 0, 'player');
+    player = this.game.add.sprite(39 * 60 - 30, 1 * 60 - 30, 'player');
     player.animations.add('down', [0, 1], 10, true);
     player.animations.add('right', [2, 3], 10, true);
     player.animations.add('left', [4, 5], 10, true);
@@ -194,9 +311,17 @@ SideScroller.Game.prototype = {
     //  The smaller the value, the smooth the camera (and the longer it takes to catch up)
     this.game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
       
+    // Syncronize with the other instance
+    this.game.time.events.loop(Phaser.Timer.SECOND * 0.5, syncronizeGame, this, player.body.sprite.position);
       
+    // Water flow
+    activateRiversTrack(0);
+      
+<<<<<<< HEAD
     // SYncronize with the other instance
     this.game.time.events.loop(Phaser.Timer.SECOND * 0.5, syncronizeGame, this, player.body.sprite.position);
+=======
+>>>>>>> 33fab81721aa76ca5355c1536482462922a9ffea
    
  }, 
  
@@ -266,21 +391,66 @@ activaEscavadora: function(escavadora, hombre)
 function syncronizeGame( playerPosition ) {
     
     getJsonSync(messageGetId).then(function(data) {
-        console.log(" ****** DATA: ", data);
+        //console.log(" ****** DATA: ", data);
          
         //var dataFake = {"name":"{'escavadora': '1','piedras': '1'}"};
         
         jsonUpdate.escavadora = JSON.parse(data.name.replace(/'/g, '"')).escavadora;
         jsonUpdate.piedras = JSON.parse(data.name.replace(/'/g, '"')).piedras;
         
-        console.log(" ****** messageGetId: ", jsonUpdate);
+        //console.log(" ****** messageGetId: ", jsonUpdate);
     });
     
     var horizontalTile = parseInt(playerPosition.x / 60);
     var verticalTile = parseInt(playerPosition.y / 60);
+<<<<<<< HEAD
     
     postJsonSync("{'persona': '" + horizontalTile + "," + verticalTile + "','escavadoraA': '" + estadoEscavadoraA 
                  + "','escavadoraB': '" + estadoEscavadoraB + "'}",messageSendId).then(function(result) {
         console.log(result);
+=======
+    postJsonSync("{'persona': '" + horizontalTile + "," + verticalTile + "'}",messageSendId).then(function(result) {
+        // console.log(result);
+>>>>>>> 33fab81721aa76ca5355c1536482462922a9ffea
     });
+}
+
+function activateRiversTrack( trackId ) {
+    
+    var tiles0 = rivers[0].tracks[trackId].tiles;
+    var tiles1 = rivers[1].tracks[trackId].tiles;
+    
+    console.log(tiles0);
+    console.log(tiles1);
+      
+    for(var i = 0; i < tiles0.length; i++) {
+        var newTile = this.game.add.sprite(tiles0[i].x * 60, tiles0[i].y * 60, 'fondos', tiles0[i].initial);
+        newTile.animations.add('flow', [tiles0[i].initial, tiles0[i].animated], 2, false);
+        riverTiles0.push(newTile);
+    }
+      
+    for(var i = 0; i < tiles1.length; i++) {
+        var newTile = this.game.add.sprite(tiles1[i].x * 60, tiles1[i].y * 60, 'fondos', tiles1[i].initial);
+        newTile.animations.add('flow', [tiles1[i].initial, tiles1[i].animated], 2, false);
+        riverTiles1.push(newTile);
+    }
+      
+    loopResult = this.game.time.events.loop(Phaser.Timer.SECOND * 2, animateWaterTile, this, riverTiles1);
+}
+
+function animateWaterTile( riverTiles ) {
+    
+    console.log('Animating tile ', currentTile);
+    
+    riverTiles[currentTile].animations.play('flow');
+    currentTile++;
+    
+    if(currentTile >= riverTiles.length) {
+        game.time.events.remove(loopResult);
+        currentTile = 0;
+        riverTiles = [];
+        
+        console.log('currentTile: ', currentTile);
+        console.log('riverTiles: ', riverTiles);
+    }
 }
