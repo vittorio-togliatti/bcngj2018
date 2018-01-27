@@ -1,11 +1,11 @@
 
-function getJsonSync(){
+function getJsonSync(messageGetId){
     
             console.log("Entra getJson");
 
                     var deferred = new $.Deferred();
 
-                    var node_url = 'http://147.83.178.140:3000/tasks/5a6bf3777f0cfc4ec6cc7932';
+                    var node_url = 'http://147.83.178.140:3000/tasks/' + messageGetId;
 
                     var request = $.ajax({
                                 url       : node_url,
@@ -38,13 +38,13 @@ function getJsonSync(){
 
 
 
-function postJsonSync(jsonString){
+function postJsonSync(jsonString,messageSendId){
     
             console.log("Entra postJson");
 
                     var deferred = new $.Deferred();
 
-                    var node_url = 'http://147.83.178.140:3000/tasks/5a6bf3de7f0cfc4ec6cc7933';
+                    var node_url = 'http://147.83.178.140:3000/tasks/5' + messageSendId;
 
                     var request = $.ajax({
                                 url       : node_url,

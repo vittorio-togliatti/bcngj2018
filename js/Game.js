@@ -2,6 +2,10 @@ var SideScroller = SideScroller || {};
  
 SideScroller.Game = function() {};
 
+var messageSendId = '5a6bf3de7f0cfc4ec6cc7933';
+var messageGetId = '5a6bf3777f0cfc4ec6cc7932';
+var jsonUpdate = {};
+
 var mapa1 =
     "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,3,4,4,4,4,4,4,4,4,4,4,4,4,4,3,4,4,4,4,4,\n" + 
     "5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,3,5,5,5,5,5,5,5,5,5,5,5,5,5,3,5,5,5,5,5,\n" + 
@@ -148,7 +152,8 @@ SideScroller.Game.prototype = {
     } else if (cursors.right.isDown) {
         player.body.moveRight(300);
     }
-      
+    
+    var rockLevel = jsonUpdate.rocks1Level;
   },
  
   render: function()
@@ -163,13 +168,13 @@ SideScroller.Game.prototype = {
 
 function syncronize( playerPosition ) {
     
-    getJsonSync().then(function(data) {
+    getJsonSync(messageGetId).then(function(data) {
         console.log(data);
     });
     
     var horizontalTile = parseInt(playerPosition.x / 60);
     var verticalTile = parseInt(playerPosition.y / 60);
-    postJsonSync("{'persona': '" + horizontalTile + "," + verticalTile + "'}").then(function(result) {
+    postJsonSync("{'persona': '" + horizontalTile + "," + verticalTile + "'}",messageSendId).then(function(result) {
         console.log(result);
     });
 }
