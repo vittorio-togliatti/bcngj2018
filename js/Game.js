@@ -403,11 +403,11 @@ activaEscavadora: function(escavadora, hombre)
     
     {
         if (isBarco1 && (player.x > 1200)){
-            barco.kill;
+            barco.sprite.destroy();
         } 
         
         if (isBarco2){
-                barco.kill;
+                barco.sprite.destroy();
             }
     }
     
