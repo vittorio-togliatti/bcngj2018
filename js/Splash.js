@@ -30,6 +30,8 @@ Splash.prototype = {
     game.add.existing(this.logo).scale.setTo(0.5);
     game.add.existing(this.loadingBar);
     game.add.existing(this.status);
+    this.game.load.audio('musica', ['music/komiku.mp3']);
+      
     this.load.setPreloadSprite(this.loadingBar);
 
     this.loadScripts();

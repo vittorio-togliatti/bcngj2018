@@ -29,6 +29,12 @@ var isButton2 = false;
 var nivelPiedras1 = 5;
 var nivelPiedras2 = 5;
 
+var riverTileXOld =0; 
+var riverTileYOld = 0; 
+var riverTileSpriteOld = 0; 
+
+var music;
+
 
 SideScroller.Game_map.prototype = {
  
@@ -68,12 +74,14 @@ SideScroller.Game_map.prototype = {
         " 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5";
       
     //this.game.time.advancedTiming = true;
-    this.load.spritesheet('fondos','img/Fondos_2.png', 20, 20, 30);
+    this.load.spritesheet('fondos','img/Fondos_2.png', 20, 20);
     this.load.spritesheet('player','img/Player.png',20,20);
     this.game.load.image('redbutton', 'img/RedButton.png');
     },
  
   create: function() {
+    
+      music = game.sound.play('musica');
       
     this.game.add.tileSprite(0, 0, 60, 200, 'fondos');
 
@@ -153,6 +161,12 @@ function syncronizeMap() {
         jsonUpdate.persona = JSON.parse(data.name.replace(/'/g, '"')).persona.split(",");
         jsonUpdate.escavadoraA = JSON.parse(data.name.replace(/'/g, '"')).escavadoraA;
         jsonUpdate.escavadoraB = JSON.parse(data.name.replace(/'/g, '"')).escavadoraB;
+        
+        jsonUpdate.riverTileX = JSON.parse(data.name.replace(/'/g, '"')).riverTileX;
+        
+        jsonUpdate.riverTileY = JSON.parse(data.name.replace(/'/g, '"')).riverTileY;
+        
+        jsonUpdate.riverTileSprite = JSON.parse(data.name.replace(/'/g, '"')).riverTileSprite;
        
         
 		if((jsonUpdate.escavadoraA  == 1) && (!isButton1)){
@@ -179,6 +193,20 @@ function syncronizeMap() {
             image.events.onInputUp.add(listenerUp2, this);
             
 		}
+        
+        if (jsonUpdate.riverTileX >= 0){
+//        if ((jsonUpdate.riverTileX >= 0)  
+//            && ((jsonUpdate.riverTileX != riverTileXOld) || (jsonUpdate.riverTileY != riverTileYOld))){
+            
+            riverTileXOld = jsonUpdate.riverTileX;
+            riverTileY = jsonUpdate.riverTileY;
+            riverTileSprite = jsonUpdate.riverTileSprite;
+            
+            console.log("entraaaaaaaaaaaaaaa: " + jsonUpdate.riverTileX + "Y: " + jsonUpdate.riverTileY + "sprite: "  + jsonUpdate.riverTileSprite);
+        
+            var agua = this.game.add.sprite(jsonUpdate.riverTileX * 20, jsonUpdate.riverTileY * 20, 'fondos', jsonUpdate.riverTileSprite*1);
+            
+            }
 
         
     });
