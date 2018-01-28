@@ -43,7 +43,7 @@ Splash.prototype = {
     game.state.add('Game', SideScroller.Game);
     game.state.add('Game_map', SideScroller.Game_map);
     game.state.add('GameOver', SideScroller.GameOver);
-    game.state.add('Credits', SideScroller.Credits);
+    game.state.add('Credits', Credits);
     game.state.add('Options', SideScroller.Options);
   },
     

@@ -3,7 +3,7 @@ Menu = function() {};
 Menu.prototype = {
     
   addMenuOption: function(text, callback) {
-    var txt = game.add.text(400, (this.optionCount * 80) + 270, text, style.navitem.default);
+    var txt = game.add.text(380, (this.optionCount * 80) + 270, text, style.navitem.default);
     txt.inputEnabled = true;
     txt.events.onInputUp.add(callback);
     txt.events.onInputOver.add(function (target) {
@@ -30,7 +30,7 @@ Menu.prototype = {
       game.state.start('Game_map');
     });
     this.addMenuOption('Credits', function () {
-      console.log('You clicked Credits!');
+      game.state.start('Credits');
     });
   },
     
