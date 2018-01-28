@@ -4,8 +4,8 @@ var style;
 (function () {
 
   // the variables declared here will not be scoped anywhere and will only be accessible in this wrapped function
-  var defaultColor = "white",
-    highlightColor = "#FEFFD5";
+  var defaultColor = "#FEFFD5",
+    highlightColor = "indigo";
 
   style = {
     navitem: {
@@ -15,7 +15,7 @@ var style;
       },
       default: {
         fill: defaultColor,
-        stroke: 'rgba(0,0,0,0)'
+        stroke: 'rgba(75, 0, 130,0)'
       },
       hover: {
         fill: highlightColor,

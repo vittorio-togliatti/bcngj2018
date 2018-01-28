@@ -13,7 +13,7 @@ Splash.prototype = {
   },
 
   loadImages: function () {
-    //this.game.load.image('menu-bg', 'assets/menu_bg.png');
+    game.load.image('menu-bg', 'img/splash.png');
     //game.load.image('options-bg', 'assets/options-bg.jpg');
     //game.load.image('gameover-bg', 'assets/gameover-bg.jpg');
   },
