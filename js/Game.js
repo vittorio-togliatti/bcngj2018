@@ -258,6 +258,7 @@ SideScroller.Game.prototype = {
     this.escavadoras = this.game.add.group();
     this.barcos = this.game.add.group();
     this.objects = this.game.add.group();
+    this.rocas = this.game.add.group();
       
       
     for(y=0;y<mapaJson.mapa.length;y++){
@@ -301,9 +302,14 @@ SideScroller.Game.prototype = {
                     escavadora.body.static = true;
                     escavadora.body.setCollisionGroup( this.escavadorasCollisionGroup );
                     escavadora.body.collides([this.hombreCollisionGroup], this.activaEscavadora, this);
+              } else if (mapaJson.mapa[y][x] == 16) {
+                  var roca = this.rocas.create(x * 60 + 30, y * 60 + 30, 'fondos', mapaJson.mapa[y][x]);
+                  this.game.physics.p2.enable([roca], false);
               }
           }
       }
+      
+      console.log('Rocas -- ', this.rocas);
       
     player = this.game.add.sprite(39 * 60 - 30, 1 * 60 - 30, 'player');
     player.animations.add('down', [0, 1], 10, true);
@@ -380,15 +386,23 @@ SideScroller.Game.prototype = {
           this.game.time.events.remove(loopResult);
       }
       
+      if(jsonUpdate.nivelPiedras1 === 2) {
+          this.destruyePiedras(1, 17);
+      } else if(jsonUpdate.nivelPiedras1 === 1) {
+          this.destruyePiedras(1, 18);
+      } else if(jsonUpdate.nivelPiedras1 === 0) {
+          this.destruyePiedras(1, 19);
+      }
+      
   },
  
-  render: function()
+    render: function()
  
     {
         //this.game.debug.cameraInfo(this.game.camera, 32, 32);   
     },
     
-activaEscavadora: function(escavadora, hombre)
+    activaEscavadora: function(escavadora, hombre)
  
     {
         escavadora.sprite.loadTexture('fondos', 8, false);
@@ -411,6 +425,18 @@ activaEscavadora: function(escavadora, hombre)
         if (isBarco2){
                 barco.sprite.destroy();
             }
+    },
+    
+    destruyePiedras: function(piedra, nivelPiedra)
+    {
+        var roca = this.rocas.children.find(function(elem) {
+            if(piedra === 1) {
+                return elem.position.x > 2000;
+            } else {
+                return elem.position.x < 2000;
+            }
+        });
+        roca.sprite.loadTexture('fondos', nivelPiedra, false);
     }
     
     
@@ -424,6 +450,22 @@ function syncronizeGame( playerPosition ) {
         jsonUpdate.escavadora = JSON.parse(data.name.replace(/'/g, '"')).escavadora;
         jsonUpdate.nivelPiedras1 = JSON.parse(data.name.replace(/'/g, '"')).nivelPiedras1;
         jsonUpdate.nivelPiedras2 = JSON.parse(data.name.replace(/'/g, '"')).nivelPiedras2;
+        
+        // TODO
+        switch(jsonUpdate.nivelPiedras1) {
+            case 4:
+                
+                break;
+            case 3:
+                break;
+            case 2:
+                break;
+            case 1:
+                break;
+            default:
+                break;
+        }
+        
         
         if(jsonUpdate.nivelPiedras1 <= 0 && !rocksDestroyed1) {
             rocksDestroyed1 = true;
@@ -460,7 +502,7 @@ function animateWaterTile() {
     
     riverTileX = riverTiles[currentTile].x;
     riverTileY = riverTiles[currentTile].y;
-    rivetTileSprite = riverTiles[currentTile].animated;
+    rivetTileSprite = riverTiles[currentTile].animated;    
     this.game.add.sprite(riverTiles[currentTile].x * 60, riverTiles[currentTile].y * 60, 'fondos', riverTiles[currentTile].animated);
     
     if(riverTiles[currentTile].animated === 6 && !isBarco1) {
