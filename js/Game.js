@@ -435,14 +435,16 @@ SideScroller.Game.prototype = {
     
     destruyePiedras: function(piedra, nivelPiedra)
     {
-        var roca = this.rocas.children.find(function(elem) {
-            if(piedra === 1) {
-                return elem.position.x > 2000;
-            } else {
-                return elem.position.x < 2000;
-            }
-        });
-        roca.loadTexture('fondos', nivelPiedra, false);
+        if(this.rocas != undefined) {
+            var roca = this.rocas.children.find(function(elem) {
+                if(piedra === 1) {
+                    return elem.position.x > 2000;
+                } else {
+                    return elem.position.x < 2000;
+                }
+            });
+            roca.loadTexture('fondos', nivelPiedra, false);
+        }
     }
     
     
@@ -481,11 +483,9 @@ function syncronizeGame( playerPosition ) {
 }
 
 function activateRiversTrack( trackId, riverId ) {
-    
+    console.log('river -> ', riverId, ' - track -> ', trackId);
     riverTiles = rivers[riverId].tracks[trackId].tiles;
-    
     loopResult = this.game.time.events.loop(Phaser.Timer.SECOND * 2, animateWaterTile, this);
-    
 }
 
 function animateWaterTile() {
@@ -507,5 +507,8 @@ function animateWaterTile() {
         currentTile = 0;
         riverTiles = [];
         this.game.time.events.remove(loopResult);
+        if(isBarco1 && !isBarco2) {
+            activateRiversTrack(0, 0);
+        }
     }
 }
