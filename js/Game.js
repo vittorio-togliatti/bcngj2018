@@ -313,8 +313,6 @@ SideScroller.Game.prototype = {
           }
       }
       
-      console.log('Rocas -- ', this.rocas);
-      
     player = this.game.add.sprite(39 * 60 - 30, 1 * 60 - 30, 'player');
     player.animations.add('down', [0, 1], 10, true);
     player.animations.add('right', [2, 3], 10, true);
@@ -396,6 +394,14 @@ SideScroller.Game.prototype = {
           this.destruyePiedras(1, 18);
       } else if(jsonUpdate.nivelPiedras1 == 0) {
           this.destruyePiedras(1, 19);
+      }
+      
+      if(jsonUpdate.nivelPiedras2 == 2) {
+          this.destruyePiedras(2, 17);
+      } else if(jsonUpdate.nivelPiedras2 == 1) {
+          this.destruyePiedras(2, 18);
+      } else if(jsonUpdate.nivelPiedras2 == 0) {
+          this.destruyePiedras(2, 19);
       }
       
   },
