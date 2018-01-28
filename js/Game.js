@@ -207,6 +207,8 @@ var loopResult;
 var riverTiles = [];
 var currentTile = 0;
 
+var riverTileX, riverTileY, riverTileSprite;
+
 SideScroller.Game.prototype = {
  
   preload: function(){
@@ -383,7 +385,7 @@ SideScroller.Game.prototype = {
   render: function()
  
     {
-        this.game.debug.cameraInfo(this.game.camera, 32, 32);   
+        //this.game.debug.cameraInfo(this.game.camera, 32, 32);   
     },
     
 activaEscavadora: function(escavadora, hombre)
@@ -456,11 +458,15 @@ function activateRiversTrack( trackId, riverId ) {
 
 function animateWaterTile() {
     
+    riverTileX = riverTiles[currentTile].x;
+    riverTileY = riverTiles[currentTile].y;
+    rivetTileSprite = riverTiles[currentTile].animated;
     this.game.add.sprite(riverTiles[currentTile].x * 60, riverTiles[currentTile].y * 60, 'fondos', riverTiles[currentTile].animated);
     
-    if(riverTiles[currentTile].animated === 6) {
+    if(riverTiles[currentTile].animated === 6 && !isBarco1) {
         isBarco1 = true;
-        activateRiversTrack(0, 0);
+    } else if(riverTiles[currentTile].animated === 6 && !isBarco2) {
+        isBarco2 = true;
     }
     
     currentTile++;
