@@ -390,11 +390,11 @@ SideScroller.Game.prototype = {
           this.game.time.events.remove(loopResult);
       }
       
-      if(jsonUpdate.nivelPiedras1 === 2) {
+      if(jsonUpdate.nivelPiedras1 == 2) {
           this.destruyePiedras(1, 17);
-      } else if(jsonUpdate.nivelPiedras1 === 1) {
+      } else if(jsonUpdate.nivelPiedras1 == 1) {
           this.destruyePiedras(1, 18);
-      } else if(jsonUpdate.nivelPiedras1 === 0) {
+      } else if(jsonUpdate.nivelPiedras1 == 0) {
           this.destruyePiedras(1, 19);
       }
       
@@ -440,7 +440,7 @@ SideScroller.Game.prototype = {
                 return elem.position.x < 2000;
             }
         });
-        roca.sprite.loadTexture('fondos', nivelPiedra, false);
+        roca.loadTexture('fondos', nivelPiedra, false);
     }
     
     
@@ -454,22 +454,6 @@ function syncronizeGame( playerPosition ) {
         jsonUpdate.escavadora = JSON.parse(data.name.replace(/'/g, '"')).escavadora;
         jsonUpdate.nivelPiedras1 = JSON.parse(data.name.replace(/'/g, '"')).nivelPiedras1;
         jsonUpdate.nivelPiedras2 = JSON.parse(data.name.replace(/'/g, '"')).nivelPiedras2;
-        
-        // TODO
-        switch(jsonUpdate.nivelPiedras1) {
-            case 4:
-                
-                break;
-            case 3:
-                break;
-            case 2:
-                break;
-            case 1:
-                break;
-            default:
-                break;
-        }
-        
         
         if(jsonUpdate.nivelPiedras1 <= 0 && !rocksDestroyed1) {
             rocksDestroyed1 = true;
