@@ -466,12 +466,12 @@ function syncronizeGame( playerPosition ) {
         
         if(jsonUpdate.nivelPiedras1 <= 0 && !rocksDestroyed1) {
             rocksDestroyed1 = true;
-            activateRiversTrack(1, 1);
+            activateRiversTrack(1, 1, 1);
         }
         
         if(jsonUpdate.nivelPiedras2 <= 0 && !rocksDestroyed2) {
             rocksDestroyed2 = true;
-            activateRiversTrack(1, 0);
+            activateRiversTrack(1, 0, 1);
         }
         
     });
@@ -492,9 +492,9 @@ function syncronizeGame( playerPosition ) {
     });
 }
 
-function activateRiversTrack( trackId, riverId ) {
+function activateRiversTrack( trackId, riverId, speed = 2 ) {
     riverTiles = rivers[riverId].tracks[trackId].tiles;
-    loopResult = this.game.time.events.loop(Phaser.Timer.SECOND * 2, animateWaterTile, this);
+    loopResult = this.game.time.events.loop(Phaser.Timer.SECOND * speed, animateWaterTile, this);
 }
 
 function animateWaterTile() {
@@ -519,7 +519,7 @@ function animateWaterTile() {
         riverTiles = [];
         this.game.time.events.remove(loopResult);
         if(isBarco1 && !isBarco2 && !activadoRio1) {
-            activateRiversTrack(0, 0);
+            activateRiversTrack(0, 0, 1);
             activadoRio1 = true;
         }
     }
