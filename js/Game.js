@@ -8,7 +8,7 @@ var messageGetId = '5a6bf3777f0cfc4ec6cc7932';
 var estadoEscavadoraA = 0;
 var estadoEscavadoraB = 0;
 
-var rocksDestroyed = false;
+var rocksDestroyed1 = rocksDestroyed2 = false;
 var isBarco1 = false;
 var isBarco2 = false;
 
@@ -423,9 +423,14 @@ function syncronizeGame( playerPosition ) {
         jsonUpdate.nivelPiedras1 = JSON.parse(data.name.replace(/'/g, '"')).nivelPiedras1;
         jsonUpdate.nivelPiedras2 = JSON.parse(data.name.replace(/'/g, '"')).nivelPiedras2;
         
-        if(jsonUpdate.nivelPiedras1 <= 0 && !rocksDestroyed) {
-            rocksDestroyed = true;
+        if(jsonUpdate.nivelPiedras1 <= 0 && !rocksDestroyed1) {
+            rocksDestroyed1 = true;
             activateRiversTrack(1, 1);
+        }
+        
+        if(jsonUpdate.nivelPiedras2 <= 0 && !rocksDestroyed2) {
+            rocksDestroyed2 = true;
+            activateRiversTrack(1, 0);
         }
         
     });
@@ -455,6 +460,7 @@ function animateWaterTile() {
     
     if(riverTiles[currentTile].animated === 6) {
         isBarco1 = true;
+        activateRiversTrack(0, 0);
     }
     
     currentTile++;
