@@ -16,7 +16,7 @@ function getJsonSync(messageGetId){
 
             
                         request.done(function(data, textStatus, jqXHR){
-                            console.log(jqXHR);
+                            //console.log(jqXHR);
                             //console.log( "Request success: " + textStatus );
                             if(data){
 
@@ -65,7 +65,7 @@ function postJsonSync(jsonString,messageSendId){
             
                         request.fail(function(jqXHR, textStatus) {
                             // console.log(jqXHR);
-                            console.log( "Request failed: " + textStatus );
+                            //console.log( "Request failed: " + textStatus );
 
                             deferred.fail("error");
                         });

@@ -8,6 +8,7 @@ var messageGetId = '5a6bf3777f0cfc4ec6cc7932';
 var estadoEscavadoraA = 0;
 var estadoEscavadoraB = 0;
 
+var rocksDestroyed = false;
 var isBarco1 = false;
 var isBarco2 = false;
 
@@ -202,10 +203,8 @@ var player;
 var cursors;
 var map;
 
-// TODO
 var loopResult;
-var riverTiles0 = [];
-var riverTiles1 = [];
+var riverTiles = [];
 var currentTile = 0;
 
 SideScroller.Game.prototype = {
@@ -328,7 +327,7 @@ SideScroller.Game.prototype = {
     this.game.time.events.loop(Phaser.Timer.SECOND * 0.5, syncronizeGame, this, player.body.sprite.position);
       
     // Water flow
-    activateRiversTrack(0);
+    activateRiversTrack(0, 1);
       
     // SYncronize with the other instance
     this.game.time.events.loop(Phaser.Timer.SECOND * 0.5, syncronizeGame, this, player.body.sprite.position);
@@ -364,7 +363,8 @@ SideScroller.Game.prototype = {
         player.body.moveRight(300);
     }
     
-    var nivelPiedras = jsonUpdate.piedras;
+    var nivelPiedras1 = jsonUpdate.nivelPiedras1;
+    var nivelPiedras2 = jsonUpdate.nivelPiedras2;
     var estadoEscavadora = jsonUpdate.escavadora;
       
     if (estadoEscavadora == 2){//esta escavando
@@ -372,6 +372,11 @@ SideScroller.Game.prototype = {
         } 
       
     //aqui va el codigo de actualizacion remota
+      
+      
+      if(currentTile === 0 && riverTiles.length === 0) {
+          this.game.time.events.remove(loopResult);
+      }
       
   },
  
@@ -413,14 +418,16 @@ activaEscavadora: function(escavadora, hombre)
 function syncronizeGame( playerPosition ) {
     
     getJsonSync(messageGetId).then(function(data) {
-        //console.log(" ****** DATA: ", data);
-         
-        //var dataFake = {"name":"{'escavadora': '1','piedras': '1'}"};
         
         jsonUpdate.escavadora = JSON.parse(data.name.replace(/'/g, '"')).escavadora;
-        jsonUpdate.piedras = JSON.parse(data.name.replace(/'/g, '"')).piedras;
+        jsonUpdate.nivelPiedras1 = JSON.parse(data.name.replace(/'/g, '"')).nivelPiedras1;
+        jsonUpdate.nivelPiedras2 = JSON.parse(data.name.replace(/'/g, '"')).nivelPiedras2;
         
-        //console.log(" ****** messageGetId: ", jsonUpdate);
+        if(jsonUpdate.nivelPiedras1 <= 0 && !rocksDestroyed) {
+            rocksDestroyed = true;
+            activateRiversTrack(1, 1);
+        }
+        
     });
     
     var horizontalTile = parseInt(playerPosition.x / 60);
@@ -428,47 +435,33 @@ function syncronizeGame( playerPosition ) {
     
     postJsonSync("{'persona': '" + horizontalTile + "," + verticalTile + "','escavadoraA': '" + estadoEscavadoraA 
                  + "','escavadoraB': '" + estadoEscavadoraB + "'}",messageSendId).then(function(result) {
-        console.log(result);
+        
+        //console.log(result);
 
     });
 }
 
-function activateRiversTrack( trackId ) {
+function activateRiversTrack( trackId, riverId ) {
     
-    var tiles0 = rivers[0].tracks[trackId].tiles;
-    var tiles1 = rivers[1].tracks[trackId].tiles;
+    riverTiles = rivers[riverId].tracks[trackId].tiles;
     
-    console.log(tiles0);
-    console.log(tiles1);
-      
-    for(var i = 0; i < tiles0.length; i++) {
-        var newTile = this.game.add.sprite(tiles0[i].x * 60, tiles0[i].y * 60, 'fondos', tiles0[i].initial);
-        newTile.animations.add('flow', [tiles0[i].initial, tiles0[i].animated], 2, false);
-        riverTiles0.push(newTile);
-    }
-      
-    for(var i = 0; i < tiles1.length; i++) {
-        var newTile = this.game.add.sprite(tiles1[i].x * 60, tiles1[i].y * 60, 'fondos', tiles1[i].initial);
-        newTile.animations.add('flow', [tiles1[i].initial, tiles1[i].animated], 2, false);
-        riverTiles1.push(newTile);
-    }
-      
-    loopResult = this.game.time.events.loop(Phaser.Timer.SECOND * 2, animateWaterTile, this, riverTiles1);
+    loopResult = this.game.time.events.loop(Phaser.Timer.SECOND * 2, animateWaterTile, this);
+    
 }
 
-function animateWaterTile( riverTiles ) {
+function animateWaterTile() {
     
-    console.log('Animating tile ', currentTile);
+    this.game.add.sprite(riverTiles[currentTile].x * 60, riverTiles[currentTile].y * 60, 'fondos', riverTiles[currentTile].animated);
     
-    riverTiles[currentTile].animations.play('flow');
+    if(riverTiles[currentTile].animated === 6) {
+        isBarco1 = true;
+    }
+    
     currentTile++;
     
     if(currentTile >= riverTiles.length) {
-        game.time.events.remove(loopResult);
         currentTile = 0;
         riverTiles = [];
-        
-        console.log('currentTile: ', currentTile);
-        console.log('riverTiles: ', riverTiles);
+        this.game.time.events.remove(loopResult);
     }
 }
