@@ -11,6 +11,7 @@ var estadoEscavadoraB = 0;
 var rocksDestroyed1 = rocksDestroyed2 = false;
 var isBarco1 = false;
 var isBarco2 = false;
+var activadoRio1 = false;
 
 var mapaJson = {'mapa': [[4,4],[4,4]]};
     
@@ -106,13 +107,13 @@ var rivers = [
                     { x: 15, y: 9, initial: 30, animated: 1 },
                     { x: 15, y: 10, initial: 30, animated: 1 },
                     { x: 15, y: 11, initial: 30, animated: 1 },
-                    { x: 15, y: 12, initial: 30, animated: 1 },
-                    { x: 15, y: 13, initial: 30, animated: 1 }
+                    { x: 15, y: 12, initial: 30, animated: 1 }
                 ]
             },
             {
                 track: 2,
                 tiles: [
+                    { x: 15, y: 13, initial: 30, animated: 1 },
                     { x: 15, y: 14, initial: 30, animated: 1 },
                     { x: 15, y: 15, initial: 30, animated: 1 },
                     { x: 15, y: 16, initial: 30, animated: 1 },
@@ -492,7 +493,6 @@ function syncronizeGame( playerPosition ) {
 }
 
 function activateRiversTrack( trackId, riverId ) {
-    console.log('river -> ', riverId, ' - track -> ', trackId);
     riverTiles = rivers[riverId].tracks[trackId].tiles;
     loopResult = this.game.time.events.loop(Phaser.Timer.SECOND * 2, animateWaterTile, this);
 }
@@ -518,8 +518,9 @@ function animateWaterTile() {
         currentTile = 0;
         riverTiles = [];
         this.game.time.events.remove(loopResult);
-        if(isBarco1 && !isBarco2) {
+        if(isBarco1 && !isBarco2 && !activadoRio1) {
             activateRiversTrack(0, 0);
+            activadoRio1 = true;
         }
     }
 }
