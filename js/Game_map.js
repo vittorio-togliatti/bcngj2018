@@ -33,6 +33,8 @@ var riverTileXOld =0;
 var riverTileYOld = 0; 
 var riverTileSpriteOld = 0; 
 
+var music;
+
 
 SideScroller.Game_map.prototype = {
  
@@ -79,6 +81,8 @@ SideScroller.Game_map.prototype = {
     },
  
   create: function() {
+    
+      music = game.sound.play('musica');
       
     this.game.add.tileSprite(0, 0, 60, 200, 'fondos');
 

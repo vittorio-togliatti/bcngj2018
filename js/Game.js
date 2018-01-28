@@ -203,6 +203,8 @@ var player;
 var cursors;
 var map;
 
+var music;
+
 var loopResult;
 var riverTiles = [];
 var currentTile = 0;
@@ -220,6 +222,8 @@ SideScroller.Game.prototype = {
   },
  
   create: function() {
+      
+    music = game.sound.play('musica');
       
     this.game.add.tileSprite(0, 0, 2400, 1800, 'background');
     this.game.world.setBounds(0, 0, 2400, 1800);
