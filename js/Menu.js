@@ -12,6 +12,7 @@ Menu.prototype = {
     txt.events.onInputOut.add(function (target) {
       target.setStyle(style.navitem.default);
     });
+    txt.input.useHandCursor = true;
     this.optionCount ++;
   },
     

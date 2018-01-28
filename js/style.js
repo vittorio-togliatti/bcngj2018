@@ -15,11 +15,13 @@ var style;
       },
       default: {
         fill: defaultColor,
-        stroke: 'rgba(75, 0, 130,0)'
+        stroke: "black",
+        strokeThickness: 2
       },
       hover: {
         fill: highlightColor,
-        stroke: 'rgba(200,200,200,0.5)'
+        stroke: "black",
+        strokeThickness: 2
       }
     }
   };

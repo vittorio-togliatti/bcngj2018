@@ -12,6 +12,7 @@ Credits.prototype = {
         txt.events.onInputOut.add(function (target) {
           target.setStyle(style.navitem.default);
         });
+        txt.input.useHandCursor = true;
         this.optionCount ++;
       },
  
@@ -23,7 +24,7 @@ Credits.prototype = {
         game.stage.disableVisibilityChange = true;
         game.add.sprite(0, 0, 'menu-bg').scale.setTo(0.9, 0.9);
       
-        var style = { font: "20px Arial", fill: "black", fontWeight: "bold", align: "center" };
+        var style = { font: "20px Arial", fill: "black", stroke: "white", strokeThickness: 2, fontWeight: "bold", align: "center" };
         var text = game.add.text(400, game.world.centerY + 100, "Isidro Serra Hernandez (Game design, graphic design & development)", style);
         text.anchor.set(0.5);
         var text = game.add.text(400, game.world.centerY + 130, "Pau Aza (Game design & development)", style);
