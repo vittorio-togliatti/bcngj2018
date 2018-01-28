@@ -9,6 +9,8 @@ var estadoEscavadoraA = 0;
 var estadoEscavadoraB = 0;
 
 var rocksDestroyed = false;
+var isBarco1 = false;
+var isBarco2 = false;
 
 var mapaJson = {'mapa': [[4,4],[4,4]]};
     
@@ -201,7 +203,6 @@ var player;
 var cursors;
 var map;
 
-// TODO
 var loopResult;
 var riverTiles = [];
 var currentTile = 0;
@@ -246,12 +247,14 @@ SideScroller.Game.prototype = {
     // Collision groups
     this.hombreCollisionGroup = this.game.physics.p2.createCollisionGroup();
     this.escavadorasCollisionGroup = this.game.physics.p2.createCollisionGroup();
+    this.barcosCollisionGroup = this.game.physics.p2.createCollisionGroup();
     this.objectsCollisionGroup = this.game.physics.p2.createCollisionGroup();
       
     this.game.physics.p2.updateBoundsCollisionGroup();
     
     // Groups
     this.escavadoras = this.game.add.group();
+    this.barcos = this.game.add.group();
     this.objects = this.game.add.group();
       
       
@@ -265,12 +268,20 @@ SideScroller.Game.prototype = {
                 tile.body.collides([this.hombreCollisionGroup]);
                   
                 
-              } else if((mapaJson.mapa[y][x] == 1 ) 
+              } else if(mapaJson.mapa[y][x] == 24){
+                  var barco = this.barcos.create(x * 60 + 30,y * 60 + 30, 'fondos', mapaJson.mapa[y][x]);
+                    this.game.physics.p2.enable([barco], false);
+                    barco.body.static = true;
+                    barco.body.setCollisionGroup( this.barcosCollisionGroup );
+                    barco.body.collides([this.hombreCollisionGroup], this.mataBarco, this);
+                  
+                  
+              }else if((mapaJson.mapa[y][x] == 1 ) 
                         || (mapaJson.mapa[y][x] == 5) 
                         || (mapaJson.mapa[y][x] == 21)
                         || (mapaJson.mapa[y][x] == 22)
                         || (mapaJson.mapa[y][x] == 2)
-                        || (mapaJson.mapa[y][x] == 24)
+                       // || (mapaJson.mapa[y][x] == 24)
                         || (mapaJson.mapa[y][x] == 30)
                        || (mapaJson.mapa[y][x] == 34)
                        || (mapaJson.mapa[y][x] == 31)
@@ -299,7 +310,7 @@ SideScroller.Game.prototype = {
     player.animations.add('up', [6, 7], 10, true);
     this.game.physics.p2.enable(player);
     player.body.fixedRotation = true;
-    player.body.collides([this.escavadorasCollisionGroup,this.objectsCollisionGroup]);
+    player.body.collides([this.escavadorasCollisionGroup,this.barcosCollisionGroup,this.objectsCollisionGroup]);
     player.body.setCollisionGroup( this.hombreCollisionGroup );
 
 
@@ -386,6 +397,18 @@ activaEscavadora: function(escavadora, hombre)
                     estadoEscavadoraB = 1;
             }
         
+    },
+    
+    mataBarco: function(barco, hombre)
+    
+    {
+        if (isBarco1 && (player.x > 1200)){
+            barco.kill;
+        } 
+        
+        if (isBarco2){
+                barco.kill;
+            }
     }
     
     
