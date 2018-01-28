@@ -443,28 +443,25 @@ function syncronizeGame( playerPosition ) {
 
 function activateRiversTrack( trackId, riverId ) {
     
-    console.log('TrackId: ', trackId, ' -- RiverId: ', riverId);
-    
-    var tiles = rivers[riverId].tracks[trackId].tiles;
-      
-    for(var i = 0; i < tiles.length; i++) {
-        var newTile = this.game.add.sprite(tiles[i].x * 60, tiles[i].y * 60, 'fondos', tiles[i].initial);
-        newTile.animations.add('flow', [tiles[i].initial, tiles[i].animated], 2, false);
-        riverTiles.push(newTile);
-    }
+    riverTiles = rivers[riverId].tracks[trackId].tiles;
     
     loopResult = this.game.time.events.loop(Phaser.Timer.SECOND * 2, animateWaterTile, this);
-    //this.game.time.events.remove(loopResult);
+    
 }
 
 function animateWaterTile() {
+    
+    this.game.add.sprite(riverTiles[currentTile].x * 60, riverTiles[currentTile].y * 60, 'fondos', riverTiles[currentTile].animated);
+    
+    if(riverTiles[currentTile].animated === 6) {
+        isBarco1 = true;
+    }
+    
+    currentTile++;
+    
     if(currentTile >= riverTiles.length) {
         currentTile = 0;
         riverTiles = [];
         this.game.time.events.remove(loopResult);
     }
-    if(riverTiles[currentTile] != undefined) {
-        riverTiles[currentTile].animations.play('flow');
-    }
-    currentTile++;
 }
