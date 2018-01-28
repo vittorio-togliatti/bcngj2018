@@ -440,8 +440,13 @@ function syncronizeGame( playerPosition ) {
     var horizontalTile = parseInt(playerPosition.x / 60);
     var verticalTile = parseInt(playerPosition.y / 60);
     
-    postJsonSync("{'persona': '" + horizontalTile + "," + verticalTile + "','escavadoraA': '" + estadoEscavadoraA 
-                 + "','escavadoraB': '" + estadoEscavadoraB + "'}",messageSendId).then(function(result) {
+    postJsonSync("{'persona': '" + horizontalTile + "," + verticalTile 
+                 + "','escavadoraA': '" + estadoEscavadoraA 
+                 + "','escavadoraB': '" + estadoEscavadoraB 
+                 + "','riverTileX': '" + riverTileX  
+                 + "','riverTileY': '" + riverTileY  
+                 + "','riverTileSprite': '" + riverTileSprite  
+                 + "'}",messageSendId).then(function(result) {
         
         //console.log(result);
 
@@ -460,7 +465,7 @@ function animateWaterTile() {
     
     riverTileX = riverTiles[currentTile].x;
     riverTileY = riverTiles[currentTile].y;
-    rivetTileSprite = riverTiles[currentTile].animated;
+    riverTileSprite = riverTiles[currentTile].animated;
     this.game.add.sprite(riverTiles[currentTile].x * 60, riverTiles[currentTile].y * 60, 'fondos', riverTiles[currentTile].animated);
     
     if(riverTiles[currentTile].animated === 6 && !isBarco1) {
