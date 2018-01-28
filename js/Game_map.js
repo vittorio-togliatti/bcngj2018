@@ -169,7 +169,8 @@ function syncronizeMap() {
     getJsonSync(messageGetId2).then(function(data) {
         jsonUpdate.persona = JSON.parse(data.name.replace(/'/g, '"')).persona.split(",");
         jsonUpdate.escavadoraA = JSON.parse(data.name.replace(/'/g, '"')).escavadoraA;
-        console.log("Datos escavación:", jsonUpdate.escavadoraA );
+        jsonUpdate.escavadoraB = JSON.parse(data.name.replace(/'/g, '"')).escavadoraB;
+       
         
 		if((jsonUpdate.escavadoraA  == 1) && (!isButton1)){
              escavadora.loadTexture('fondos', 8, false);
@@ -187,7 +188,7 @@ function syncronizeMap() {
         if((jsonUpdate.escavadoraB  == 1) && (!isButton2)){
              escavadora2.loadTexture('fondos', 8, false);
             isButton2 = true;
-            var image = game.add.sprite(30, 530, 'redbutton');
+            var image = game.add.sprite(50, 530, 'redbutton');
             image.scale.setTo(0.2,0.2);
             image.anchor.set(0.5);
             image.inputEnabled = true;
